@@ -1,4 +1,4 @@
----
+﻿---
 layout: about
 title: About ME
 ---
@@ -17,10 +17,10 @@ Now, I work in the technique department of ICBU to do my internship. I will Grad
 
 ## Experiences
 
-1. **2015年6月**，受邀参与[Packt](https://www.packtpub.com/)出版社`MongoDB for Java Developers`一书的评审，并完成全书的审稿任务。
-1. **2015年3月**, 受邀参与IBM Connect 2015大会移动分会场颁奖环节，我的作品iTravel记忆拼图获得了2014年IBM全国高校移动创新应用开发大赛亚军。
-2. **2015年2月**，通过MongoDB for Node.js Developers课程认证，该课程由MongoDB官方提供。
+1. **2015年06月**, 受邀参与[Packt](https://www.packtpub.com/)出版社[MongoDB for Java Developers](https://www.packtpub.com/application-development/mongodb-java-developers)一书的评审，并完成全书的审稿任务。
+1. **2015年03月**, 受邀参与IBM Connect 2015大会移动分会场颁奖环节，我的作品iTravel记忆拼图获得了2014年IBM全国高校移动创新应用开发大赛亚军。
+2. **2015年02月**，通过MongoDB for Node.js Developers课程认证，该课程由MongoDB官方提供。
 3. **2014年12月**，通过MongoDB for Java Developers课程认证，该课程由MongoDB官方提供。
 4. **2014年11月**，于北京参加中国计算机协会前沿技术讲习班(CCF ADL53: 数据驱动的软件开发与演化)。
-5. **2014年9月**，于山西太原参加全国数据库学术会议(NDBC 2014)。
-6. **2014年6月**，参与[Monash English Bridging](http://www.monash.edu/)，时常2个月，并通过全部课程考核（相当于雅思6分）。
+5. **2014年09月**，于山西太原参加全国数据库学术会议(NDBC 2014)。
+6. **2014年06月**，参与[Monash English Bridging](http://www.monash.edu/)，时常2个月，并通过全部课程考核（相当于雅思6分）。
