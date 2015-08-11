@@ -1,6 +1,6 @@
 ---
 layout: post
-title: React.js的一些入门基础知识
+title: 谈谈React.js的核心入门知识
 category: technique
 ---
 
@@ -13,7 +13,7 @@ category: technique
 和编程原则让你能够同时在服务端和客户端编写快速、紧凑、漂亮的代码来构建
 你的web应用。
 
-本会会涉及到一些常用的概念或技术，包括：
+如果你使用React，那么可能会涉及到一些常用的概念或技术，包括：
 
 - ES6 React
 - 虚拟DOM（virtual DOM）
@@ -195,7 +195,7 @@ JSX和HTML有点像，但也有不一样的地方。例如，HTML中的`class`�
 	
 	var user = { name: 'John', city: 'San Francisco' };  
 	React.render(<User user={user} />, document.body);
-	
+		
 ### React拥抱ES6
 
 在React中尝试编写ES6是个非常不错的开始，React并不是一开始就支持ES6的，
@@ -209,6 +209,44 @@ JSX和HTML有点像，但也有不一样的地方。例如，HTML中的`class`�
 
 1. [Babel: Learn ES6](https://babeljs.io/docs/learn-es6/)
 2. [React ES6 announcement](https://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html)
+
+## 组件生命周期
+
+每个React组件在加载时都有特定的生命周期，在此期间不同的方法会被执行。
+下面简单介绍React组件的生命周期：
+
+### `componentWillMount`
+
+该方法会在组件`render`之前执行，并且永远只执行一次。
+
+### `componentDidMount`
+
+该方法会在组件加载完毕之后立即执行。此时，组件已经完成了DOM结构的渲染，
+并可以通过`this.getDOMNode()`方法来访问。
+
+### `componentWillReceiveProps`
+
+组件接收到一个新的prop时会被执行，且该方法在初始`render`时不会被调用。
+
+### `shouldComponentUpdate`
+
+在组件接收到新的props或state时被执行。
+
+### `componentWillUpdate`
+
+在组件接收到新的props或者state但还没有render时被执行。
+在初始化时不会被执行。
+
+### `componentDidUpdate`
+
+在组件完成更新后立即执行。在初始化时不会被执行。
+一般会在组件完成更新后被使用。
+
+### `componentWillUnMount`
+
+在组件从DOM中unmount后立即执行。该方法主要用来执行一些必要的清理任务。
+
+关于生命周期的具体内容，你可以参考[官方文档](http://facebook.github.io/react/docs/component-specs.html)。
 
 ## 在打包时使用Webpack和Babel
 
@@ -321,7 +359,13 @@ webpack的配置文件。一个典型的配置方式如下：
 
 ### 如何测试React组件
 
-TBD.
+对于React组件的测试，这里推荐使用[Jest](https://facebook.github.io/jest/),
+Jest也是由Facebook提供的测试框架，并且有很多强大的特性，但这里并会详细的
+介绍它们。
+
+关于Jest，我推荐你阅读和尝试来自Facebook的[Tutorial](https://facebook.github.io/jest/docs/tutorial-react.html#content)。
+
+对于ES6代码的测试，你可以参考 [React ES6 Testing](https://github.com/facebook/jest/tree/master/examples/react-es6)。
 
 ## 小结
 
@@ -331,9 +375,10 @@ TBD.
 ### Statement
 
 本文翻译自：https://blog.risingstack.com/the-react-way-getting-started-tutorial/
-有删改。
+有增删改。
 
 ## References
 
 1. https://blog.risingstack.com/the-react-way-getting-started-tutorial/
 2. https://github.com/RisingStack/react-way-getting-started
+3. http://facebook.github.io/react/docs/component-specs.html
