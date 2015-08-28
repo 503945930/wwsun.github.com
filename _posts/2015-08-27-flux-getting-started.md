@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Flux架构和Immutable.js
+title: 谈谈React的Flux架构和Immutable.js
 category: technique
 ---
 
@@ -31,7 +31,7 @@ category: technique
 通过将数据作为参数传递给组件，并且通过层层传递的方式将数据传递给下层组件，也就是说，你在顶层传递数据，它可以一层一层的往下传递，
 这个过程，我们称之为自上而下的渲染。
 
-![react component hierarchy](/img/posts/150827-react_component_hierarchy.png)
+![react component hierarchy](/img/posts/150827-react-component-hierarchy.png)
 
 从上层组件往下层组件传递数据其实很简单，但是，如果下层组件发生了某些变化，我们如何通知上层组件呢？例如，用户点击了某个按钮？
 我们需要某个东西来存放应用程序的状态数据，能够在状态发生变化的时候去通知所发生的变化。新的状态应该能够被传递给根节点
@@ -126,7 +126,7 @@ Mixin模式，它可以用来对新的属性和之前的属性进行对比，如
 
 现在我们回到前面的代码片段来重新想象我们应用程序的组件结构，可以用下面这张图来表示：
 
-![immutable state](/img/posts/150827-immutable_state-1.png)
+![immutable state](/img/posts/150827-immutable-state-1.png)
 
 从上面的图形中你可以发现，在应用状态发生变化后，只有红色的部分会被重新渲染，因为其他部分的引用数据并没有发生变化。也就是说，
 只有根组件和其中一部分的user组件会被重新渲染。
