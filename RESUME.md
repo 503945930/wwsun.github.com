@@ -28,17 +28,13 @@ I will Graduate in June 2016, expect the internship or full-time job in Full-sta
 
 -------
 
-### Internship offers {#offers}
+### Internship {#internship}
 
-* __mogujie.com (May, 2015, Hangzhou)__
-  : Data Platform Engineer
+* __Alibaba Group (June - August, 2015, Hangzhou)__
+  : Node.js Developer: building Javascript module builder & Full stack Web App Development (Node & React)
 
-* __IBM CDL (May, 2015, Beijing)__
-  : Extreme Blue Project: Unique services for Mobile on Bluemix China
-
-* __Alibaba Group (March, 2015, Hangzhou)__
-  : Node.js Developer: real-time message/communication center
-
+* __Other offers__
+  : IBM CDL (Mobile), mogujie.com (Hadoop)
 
 -------
 
