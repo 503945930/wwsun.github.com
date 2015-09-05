@@ -7,7 +7,7 @@ title: Weiwei SUN Resume
 
 ### PG2, Southeast University
 
-> [Download PDF](/data/resume_en.pdf)  
+> Download PDF | [中文版](/data/resume_chn.pdf) | [EN](/data/resume_en.pdf)  
 > [ww.sun@outlook.com](ww.sun@outlook.com)  
 > (+86) 159-5172-7257
 
