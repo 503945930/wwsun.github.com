@@ -97,5 +97,5 @@ BU不断试错的过程中，国际站的技术体系来的相对稳定。
 我喜欢杭州、上海，我想在技术较为成熟的公司工作与学习。
 
 - Email: ww.sun@outlook.com
-- Blog: http://wwsun.me
-- Resume: http://wwsun.me/RESUME.html
+- Blog: [http://wwsun.me](http://wwsun.me)
+- Resume: [http://wwsun.me/RESUME.html](http://wwsun.me/RESUME.html)
