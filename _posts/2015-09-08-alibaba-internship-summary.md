@@ -96,8 +96,4 @@ BU不断试错的过程中，国际站的技术体系的发展来的相对稳定
 <del>最后的最后，因为众所周知的原因，我有求职的意向，如果你喜欢我的文章和过往经历，欢迎联系我。作为应届毕业生，
 我喜欢杭州、上海，我想在技术较为成熟的公司工作与学习。我主要使用的语言为Java, JavaScript, Node。</del>
 
-我的联系方式，非诚勿扰：
-
-- Email: ww.sun@outlook.com
-- Blog: [http://wwsun.me](http://wwsun.me)
-- Resume: [http://wwsun.me/RESUME.html](http://wwsun.me/RESUME.html)
+感谢主管和HRG的信任与坚持，阿里发了（实习生转正）Offer，职位为前端工程师（Node.js方向）。
