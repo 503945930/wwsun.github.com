@@ -149,6 +149,9 @@ Stub是用于模拟一个组件/模块的一个函数或程序。在测试用例
 这题没有唯一的答案。本题主要考察被面试者对于他所使用的Node框架的理解程度，
 考察他是否能够给出选择该框架的理由，优缺点等。
 
+## Statement
+
+> 原文地址：https://blog.risingstack.com/node-js-interview-questions/
 
 ## References
 
