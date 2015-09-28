@@ -4,7 +4,7 @@ title: Node.js编程建议（1）
 category: knowledge
 ---
 
-本文谈一谈Node.js的最佳实践，包括Node.js的代码风格以及开发者工作流。
+本文总结一下我们在工作中的Node.js的最佳实践，包括Node.js的代码风格以及开发者工作流。本文是本系列的第一篇。
 
 <!--more-->
 
@@ -173,6 +173,10 @@ Log everything! 启用日志服务！
 
 可以参考RisingStack的[Node.js风格指南](https://github.com/RisingStack/node-style-guide)。
 
-## References
+## More
 
-1. 本文翻译自：https://blog.risingstack.com/node-js-best-practices/
+Node.js编程建议（2）已发布，点击[链接](http://wwsun.me/posts/node-best-practices-2.html)查看。
+
+## Statement
+
+> 原文地址：https://blog.risingstack.com/node-js-best-practices/
