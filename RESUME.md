@@ -1,6 +1,6 @@
 ---
 layout: resume
-title: Weiwei SUN Resume
+title: 个人简历 - Weiwei SUN
 ---
 
 #Weiwei SUN
