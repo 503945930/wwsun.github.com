@@ -331,7 +331,8 @@ webpack的配置文件。一个典型的配置方式如下：
 
 ### 项目结构
 
-一个典型的项目结构你可以参考[这个仓库](https://github.com/RisingStack/react-way-getting-started)。
+一个典型的项目结构你可以参考[这个仓库](https://github.com/wwsun/starter-node-react)。
+我推荐你使用这个仓库来启动一个新React项目，它提供了一个典型react-app的目录结构。
 
 	config/  
 	    app.js
@@ -383,3 +384,4 @@ Jest也是由Facebook提供的测试框架，并且有很多强大的特性，�
 1. https://blog.risingstack.com/the-react-way-getting-started-tutorial/
 2. https://github.com/RisingStack/react-way-getting-started
 3. http://facebook.github.io/react/docs/component-specs.html
+4. https://github.com/wwsun/starter-node-react
