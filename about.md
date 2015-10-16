@@ -10,8 +10,6 @@ I will Graduate in June 2016, expect the internship or full-time job in Full-sta
 花名景庄，90年生人，性别工科男。喜好广，好看球、看书、旅游。现就读于[东南大学](http://www.seu.edu.cn/)，参与SEU-Monash[联合培养计划](https://www.monash.edu/about/campuses/china)，双硕士学位。
 研究方向为：数据可视化技术、数据库技术。关注前端工程化、Node和Java EE。
 
-将于2016年6月毕业，期待来自Web开发相关(Java EE, Node, FE)的全职机会（[求职中](/RESUME.html)）。
-
 [My CV/ 个人简历](/RESUME.html)
 
 [My Projects/ 项目列表](http://wwsun.me/project.html)
