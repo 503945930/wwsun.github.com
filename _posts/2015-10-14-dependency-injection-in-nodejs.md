@@ -5,8 +5,8 @@ category: technique
 ---
 
 依赖注入是一种软件设计模式，一个或多个依赖项（或服务）通过引用被注入或传递进依赖对象中。
-在之前，我曾总结过[Java中依赖注入以及JSR-330的参考实现Guice](http://wwsun.me/posts/di-guice-post.html)，
-本文将会讨论如何在Node.js程序中使用依赖注入。
+在不久前，我曾总结过[Java中依赖注入以及JSR-330的参考实现Guice](/posts/di-guice-post.html)，
+如果你感兴趣可以参考前一篇文章，本文将会讨论如何在Node.js程序中使用依赖注入。
 
 <!--more-->
 
@@ -111,8 +111,8 @@ category: technique
 	});
 
 对比下和之前的不使用依赖注入那个版本的不同之处：
-首先一个是使用了[工厂模式](http://wwsun.me/posts/node-design-patterns.html)：
-我们使用这张方法来注入选项/依赖项，从而创建新的对象——这也就是我们要注入`User`模型的地方。
+首先一个是使用了[工厂模式](/posts/node-design-patterns.html)：
+我们使用这种方法来注入选项/依赖项，从而创建新的对象——这也就是我们要注入`User`模型的地方。
 
 在测试文件中，我们可以创建虚假的模型对象来表示`User`模型，然后我们可以轻松的将它传递进
 `Team`模型的`create`方法中。是的，这很简单。
