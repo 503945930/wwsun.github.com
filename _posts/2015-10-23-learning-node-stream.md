@@ -4,8 +4,8 @@ title: Learning Stream in Node.js
 category: technique
 ---
 
-本文将用尽可能简单的方式为你介绍Node中流的概念。虽然网上已经有很多资料介绍过了这个概念，
-但是本文还是想利用一些尽可能简单的方法解释Node中流（Stream）的概念。
+流是Node.js中一个非常重要的概念，也是Node.js之所以适用于数据密集型场景的重要原因之一。
+本文将用尽可能简单的方式为你介绍Node中流的概念。
 
 <!--more-->
 
@@ -94,6 +94,7 @@ category: technique
 
 ## References
 
+1. [Introduction to streams](http://www.sitepoint.com/introduction-to-streams/)
 1. [Hack Reactor's Video About Node Streams](https://www.youtube.com/watch?v=OeqnIuTMod4)
 2. [Stream (Node.js)](https://nodejs.org/api/stream.html)
 3. [File System (Node.js)](https://nodejs.org/api/fs.html)
