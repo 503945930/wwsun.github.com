@@ -9,7 +9,7 @@ exclude:
 
 name: 景庄
 host: wwsun.github.com
-baseurl: http://wwsun.me/
+baseurl: http://wwsun.github.io/
 desc: To be Full-Stack
 
 custom:
