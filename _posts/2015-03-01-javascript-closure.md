@@ -4,15 +4,18 @@ title: 详解JavaScript的函数闭包
 category: technique
 ---
 
-闭包是指有权访问另一个函数作用域中的变量的函数。也可以认为闭包是指函数有自由独立的变量
-（也就是说，闭包是一种特殊的对象，其包含函数和创建该函数的环境）。
+在JavaScript总，实现外部作用域访问内部作用域中变量的方法叫做闭包（Closure）。
+也可以认为闭包是指函数有自由独立的变量（闭包是一种特殊的对象，其包含函数和创建该函数的环境）。
 换句话说，定义在闭包中的函数可以“记忆”它创建时候的环境。而创建闭包的最常见的方式，是在函数内部创建另一个函数。
 
 <!--more-->
 
+> A closure is a function plus the connection to the variables of its surrounding scopes.
+
 ## 词法作用域
 
-考虑下面这个[例子（在JSFIDDLE查看）](http://jsfiddle.net/xAFs9/3/)
+处于种种原因，有时候我们需要得到函数内部的局部变量。通常情况下，这是无法做到的，只有通过变通方法才能实现。
+我们需要在函数内部再定义一个函数。比如有下面这个[例子（在JSFIDDLE查看）](http://jsfiddle.net/xAFs9/3/)：
 
 	function init() {
 	    var name = "Mozilla"; // name is a local variable created by init
@@ -25,38 +28,53 @@ category: technique
 	}
 	init();
 
-函数init()中创建了一个局部变量`name`和内部函数`displayName()`。
-displayName()是一个内部函数，因此只在init()函数体内有效。displayName()本身没有任何的局部变量，
-但是它却能够访问父函数init()中定义的 name 变量。
+上面的代码中，`displayName`是`init`的内函数，可以在`displayName`中访问`init`的局部变量，但反过来却不可以。
+也就是`displayName`内部的局部变量对`init`是不可见的。这就是Javascript语言特有的"链式作用域"结构（chain scope），
+子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。
 
 简单的说，内函数`displayName()`之所以能访问外函数中的`name`变量是因为JavaScript中的词法作用域的作用：
 在 JavaScript 中，变量的作用域是由它在源代码中所处位置决定的（词法），并且嵌套的函数可以访问到其外层作用域中声明的变量。
 
-
 ## 闭包
+
+既然`displayName`可以访问`init`的局部变量，那么只要把`displayName`返回，
+我们不就可以在`init`的外部读取到它的内部变量了吗！
 
 现在考虑下面这个[例子](http://jsfiddle.net/wwsun/tyyqjn4y/)：
 
 	function makeFunc() {
 		var name = "Mozilla";
+		
+		// 内函数可以访问外部函数的局部变量
 		function displayName() {
 			alert(name);
 		}
-		return displayName;
+		return displayName; // 返回内部函数
 	}
 	
 	var myFunc = makeFunc(); // myFunc成为了闭包
 	myFunc();
 
-如果你运行上面的代码，其运行结果和前面`init()`例子中的结果是一样的。
-但不一样的是，内函数`displayName()`在执行之前被外函数返回了。
+代码的运行结果并没有变，所不同的是，内函数`displayName()`在执行之前被外函数返回了。
 
 这段代码看起来别扭却能正常运行。通常，函数中的局部变量仅在函数的执行期间可用。
-一旦 `makeFunc()` 执行过后，我们会很合理的认为 `name` 变量将不再可用。虽然代码运行的没问题，但实际并不是这样的。
+一旦 `makeFunc()` 执行过后，我们会很合理的认为 `name` 变量将不再可用。虽然代码运行的没问题，但实际并非如此。
 
 对这一问题的解释就是，`myFunc`变成成一个**闭包**了。闭包是一种特殊的对象，它由两部分构成：
 函数，以及创建该函数的环境。环境由闭包创建时在作用域中的任何局部变量组成。
 在我们的例子中，`myFunc` 是一个闭包，由 `displayName` 函数和闭包创建时存在的 "Mozilla" 字符串形成。
+
+你可以简单的理解为：闭包就是能够读取其他函数内部变量的函数。而闭包通常是“定义在函数内部的函数”。
+我们可以认为，闭包充当了函数内部和函数外部连接起来的桥梁。
+
+### 闭包用途
+
+1. 读取函数内部的变量
+1. 让这些变量的值始终保存在内存中
+
+注意，因为闭包会使得函数中变量都保存在内存中，因此不能滥用闭包，否则会造成内存溢出。
+
+### 作用域链
 
 之所以能访问这个变量，是因为内部函数的作用域链中包含了外函数`makeFunc()`的作用域。
 要搞清楚其细节，就有必要了解作用域链（Scope Chain）的相关知识：
@@ -188,7 +206,7 @@ html代码如下：
 这里有好多细节。在以往的示例中，每个闭包都有它自己的环境；而这次我们只创建了一个环境，
 为三个函数所共享，分别是：`counter.increment`, `counter.decrement`, `counter.value`。
 
-被共享的环境是在一个匿名函数的函数体内被创建的，这将会在其被定义后立即执行（立即执行函数）。
+被共享的环境是在一个匿名函数的函数体内被创建的，这将会在其被定义后立即执行（立即执行函数 IIFE）。
 这个共享环境包含两个私有项：变量`privateCounter`和函数`changeBy`，
 外界无法直接访问匿名函数内部的这两个私有项。取而代之的是，
 只能通过访问三个公开的接口函数，也就是被匿名函数返回的三个函数。
@@ -213,6 +231,18 @@ html代码如下：
 闭包变量`privateCounter`在每一次包含不同的实例。
 
 利用这种方式使用闭包可以向OOP编程一样提供非常多的好处，尤其是数据隐藏和封装。
+
+### 立即执行函数 IIFE
+
+通过IIFE这种方式我们可以构造块作用域，通常的模式为：
+
+	(function () {
+		var tmp = ...; // 这里的tmp就是个局部变量
+		
+			
+	}());
+	
+IIFE是一种函数表达式，它在被定义后立即被调用。而在函数内部定义的变量自然是局部变量。
 
 ## 在循环中创建闭包：一个常常会犯的错误
 
@@ -349,7 +379,8 @@ JavaScript代码如下：
 
 ###References
 
+1. http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html
 1. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
-2. JavaScript高级程序设计，第3版，第7章
-2. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Closures
-3. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
+1. JavaScript高级程序设计，第3版，第7章
+1. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Closures
+1. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
