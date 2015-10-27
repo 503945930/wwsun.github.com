@@ -70,7 +70,7 @@ __MSEARCH, A PERSONALISED MOIVE SEARCH ENGINE | MONASH UNIVERSITY__
 
 __Full List__
 : *Check the full list at*
-  [http://wwsun.me/project.html](http://wwsun.me/project.html)
+  [http://wwsun.me/project.html](http://wwsun.github.com/project.html)
 
 ------
 
@@ -90,6 +90,6 @@ __Full List__
 
 ### Footer {#footer}
 
-Weiwei SUN -- Blog: [wwsun.me](http://wwsun.me) -- (+86) 159-5172-7257
+Weiwei SUN -- Blog: [wwsun.me](http://wwsun.github.com) -- (+86) 159-5172-7257
 
 ------
