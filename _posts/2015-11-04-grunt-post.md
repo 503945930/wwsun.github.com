@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Grunt, 基于JavaScript的项目构建工具
+title: 使用Grunt作为JavaScript应用构建工具
 category: technique
 ---
 
@@ -47,11 +47,11 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 最后一步是创建`Gruntfile.js`文件，Grunt通过这个文件来载入可用任务以及配置相关参数。
 下面的代码展示了一个最简单的`Gruntfile.js`文件：
 
-	```javascript
+  ```javascript
 	module.exports = function (grunt) {
 		grunt.registerTask('default', []); // 注册一个默认的任务
 	}
-	```
+  ```
 	
 值得关注的是，Grunt文件时一个普通的Node模块，遵循CommonJS模块化规范。
 
@@ -76,7 +76,7 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 接下来你要告诉Grunt你会使用的插件，并将其添加到指定的任务队列中，例如加入`default`任务队列。
 现在`Gruntfile.js`的代码如下：
 
-	```javascript
+```javascript
 	module.exports = function (grunt) {
 		
 		// 配置任务
@@ -89,15 +89,15 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 		
 		grunt.registerTask('default', ['jshint']); // 注册一个默认的任务
 	}
-	```
+```
 
-### 使用Grunt来管理构建过程
+## 使用Grunt来管理构建过程
 
 - Development flow 开发流：Preprocessing, Liniting, Unit testing （关心的是开发效率）
 - Release flow 发布流：Compilation, Image spriting, Bunding, Heavy testing, Minification, Perf. tuning （关心的是性能）
 - Deployment flow 部署流：关心的是稳定性
 
-## 其他的构建任务
+关于构建你可以参考[这篇文章](http://web.jobbole.com/83690/)，这篇文章介绍了绝大部分构建需要考虑到的事情。
 
 ### 将less转换成css
 
@@ -112,7 +112,7 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 	
 `less`任务的配置对象如下：
 
-	```javascript
+```javascript
 	grunt.initConfig({
 		less: {
 			compile: {
@@ -122,9 +122,153 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 			}
 		}
 	})
-	```
+```
 
-### 其他插件
+在命令行执行`grunt less`即可触发任务。通常推荐你在`grunt`后指定运行的目标。因为这里只有`compile`目标，
+因此这相当于执行`grunt less:compile`。如果你不提供目标名，则所有的目标都会被执行。
+
+### 文件名匹配 Globbing patterns
+
+[Globbing](http://gruntjs.com/configuring-tasks#globbing-patterns)是一种路径匹配机制，
+用于辅助你使用文件路径模式来包含或去除一系列文件。示例如下：
+
+```
+	[
+		'public/*.less',
+		'public/**/*.less',
+		'!public/vendor/**/*.less'
+	]
+```
+
+1. 第一行会匹配public目录下的所有less文件
+2. 第二行会匹配public目录下所有处于子文件夹中的Less文件
+3. `!`表示忽略所有匹配的文件
+
+理解Globbing模式，你需要知道如下几个匹配符的作用：
+
+- `*` 匹配任意个字符，除了`/`
+- `?` 匹配单个字符，除了`/`
+- `**` 匹配任意个字符，包括`/`
+- `{}` 匹配多个选项中的一个，使用逗号分隔 
+- `!` 放在模式的最前方，表示忽略匹配符合的项
+
+Globbing模式会按照它们所处的先后位置进行匹配。你可以将上面的配置更改为：
+
+	files: {
+		'build/css/compiled.css': 'public/css/**/*.less'		
+	}
+
+### 打包静态文件
+
+静态文件打包可以理解为将文件合并起来，这样的话，可以将文件请求减少为单个HTTP响应，从而减少网络的运输开销。
+虽然单个文件的载荷可能过大，不过它能够节省客户端的资源开销，避免发起过多的HTTP请求。换句话说，
+可以将静态文件打包简单的理解为将多个文件拼接在一起。
+
+![bundling static assets](/img/posts/151104-static-bundling.png)
+
+你可以使用`grunt-contrib-concat`插件进行静态资源的合并打包。载入插件，并配置如下：
+
+```
+    grunt.initConfig({
+		concat: {
+			js: {
+				files: {
+					'build/js/bundle.js': 'public/js/**/*.js'
+				}
+			}	
+		}
+	})
+```
+
+上面的代码将`public/js`下的所有js文件都合并包`bundle.js`文件中。
+
+### 静态资源最小化
+
+这个过程包括消除代码中的空格、缩短变量名，优化语法树等操作，从而减小文件的尺寸。并且可以组合服务端的[Gzip](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer?hl=en)压缩，
+这个过程后你的源代码文件将被极大的缩小。
+
+文件的打包可以组合文件最小化。两者的目标都是一致的：生成更少、更小的最适合发布的资源包。对于资源最小化而言，
+你可以借助`grunt-contrib-uglify`插件包来最小化JS源文件。配置如下：
+
+```javascript
+	grunt.initConfig({
+		uglify: {
+			cobra: {
+				files: {
+					'build/js/cobra.min.js': 'public/js/cobra.js'
+				}	
+			}	
+		}
+	})
+```
+
+接下来，你可以执行`grunt uglify:cobra`来运行该任务。
+
+通常情况下，我们会在执行完打包命令后执行文件最小化操作。我们可以组合这两个任务：
+
+```javascript
+	grunt.initConfig({
+		uglify: {
+			bundle: {
+				files: {
+					'build/js/bundle.min.js': 'build/js/bundle.js'
+				}	
+			}	
+		}
+	})
+```
+
+### 实施图像sprites
+
+Sprites可以看成是对图像的打包，也就是将多个零散的图片文件组装成单个大文件。不再引用单个文件，
+而是通过CSS的`background-position`、`width`、`height`属性来从sprites中选择子图像。
+
+我推荐你使用`grunt-spritesmith`插件。它的配置选项如下所示：
+
+```javascript
+	grunt.initConfig({
+		sprite: {
+			icons: {
+				src: 'public/img/icons/*.png',
+				destImg: 'build/img/icons.png',
+				destCSS: 'build/css/icons.png'	
+			}	
+		}
+	})
+```
+
+### 任务别名
+
+任务的别名用于按顺序组织一组相关的任务，通过任务别名你可以用来组织工作流。在Grunt中，通过如下的方式来定义任务的别名：
+
+    grunt.registerTask('js', 'Concatenate and minify js files', ['concat:js', 'uglify:bundle']);
+	
+- 参数1：名称
+- 参数2：描述信息
+- 参数3：任务列表
+
+### 清理工作文件夹
+
+为了达到代码完整性（code integrity），每次重新构建之前首先需要做的是清理工作文件夹，因为你需要确保每次构建后的结果是一致的，
+因此最佳实践是在每次构建之前清理掉所有上一次构建后生成的文件。通常我们命名为`build`文件夹。
+
+实际发布时，服务器使用的是构建后的文件，而不是源代码文件。还有一点需要再次提醒的是，最佳的做法是，将构建的文件和源代码文件分开。
+例如上面提到的`build`文件夹放置构建后生成的文件，`src`放置源代码文件。
+
+你需要使用`grunt-contrib-clean`插件，它提供了一个`clean`任务用于帮助你完成清除任务。在任务的配置中，
+你需要提供需要清理的目标名，然后再目标名后通过globbing模式指定要清除文件路径。配置如下：
+
+```javascript
+	grunt.initConfig({
+		clean: {
+			js: 'build/js',
+			css: 'build/css',
+			less: 'public/**/*.css'
+		}		
+	})
+```
+
+## 例子
 
 我们通常会安装两个插件，分别是`load-grunt-tasks`[3]和`time-grunt`[4]。
 第一个插件的作用是用来自动读取package.json文件中的`dependencies/ devDenpendencies/ peerDenpendencies`，
