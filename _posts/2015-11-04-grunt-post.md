@@ -49,11 +49,9 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 最后一步是创建`Gruntfile.js`文件，Grunt通过这个文件来载入可用任务以及配置相关参数。
 下面的代码展示了一个最简单的`Gruntfile.js`文件：
 
-  ```javascript
 	module.exports = function (grunt) {
 		grunt.registerTask('default', []); // 注册一个默认的任务
 	}
-  ```
 	
 值得关注的是，Grunt文件时一个普通的Node模块，遵循CommonJS模块化规范。
 
@@ -78,7 +76,6 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 接下来你要告诉Grunt你会使用的插件，并将其添加到指定的任务队列中，例如加入`default`任务队列。
 现在`Gruntfile.js`的代码如下：
 
-```javascript
 	module.exports = function (grunt) {
 		
 		// 配置任务
@@ -91,7 +88,6 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 		
 		grunt.registerTask('default', ['jshint']); // 注册一个默认的任务
 	}
-```
 
 ## 使用Grunt来管理构建过程
 
@@ -114,7 +110,6 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 	
 `less`任务的配置对象如下：
 
-```javascript
 	grunt.initConfig({
 		less: {
 			compile: {
@@ -124,7 +119,6 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 			}
 		}
 	})
-```
 
 在命令行执行`grunt less`即可触发任务。通常推荐你在`grunt`后指定运行的目标。因为这里只有`compile`目标，
 因此这相当于执行`grunt less:compile`。如果你不提供目标名，则所有的目标都会被执行。
@@ -134,13 +128,11 @@ CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你�
 [Globbing](http://gruntjs.com/configuring-tasks#globbing-patterns)是一种路径匹配机制，
 用于辅助你使用文件路径模式来包含或去除一系列文件。示例如下：
 
-```
 	[
 		'public/*.less',
 		'public/**/*.less',
 		'!public/vendor/**/*.less'
 	]
-```
 
 1. 第一行会匹配public目录下的所有less文件
 2. 第二行会匹配public目录下所有处于子文件夹中的Less文件
@@ -170,7 +162,6 @@ Globbing模式会按照它们所处的先后位置进行匹配。你可以将上
 
 你可以使用`grunt-contrib-concat`插件进行静态资源的合并打包。载入插件，并配置如下：
 
-```
     grunt.initConfig({
 		concat: {
 			js: {
@@ -180,7 +171,6 @@ Globbing模式会按照它们所处的先后位置进行匹配。你可以将上
 			}	
 		}
 	})
-```
 
 上面的代码将`public/js`下的所有js文件都合并包`bundle.js`文件中。
 
@@ -192,7 +182,6 @@ Globbing模式会按照它们所处的先后位置进行匹配。你可以将上
 文件的打包可以组合文件最小化。两者的目标都是一致的：生成更少、更小的最适合发布的资源包。对于资源最小化而言，
 你可以借助`grunt-contrib-uglify`插件包来最小化JS源文件。配置如下：
 
-```javascript
 	grunt.initConfig({
 		uglify: {
 			cobra: {
@@ -202,13 +191,11 @@ Globbing模式会按照它们所处的先后位置进行匹配。你可以将上
 			}	
 		}
 	})
-```
 
 接下来，你可以执行`grunt uglify:cobra`来运行该任务。
 
 通常情况下，我们会在执行完打包命令后执行文件最小化操作。我们可以组合这两个任务：
 
-```javascript
 	grunt.initConfig({
 		uglify: {
 			bundle: {
@@ -218,7 +205,6 @@ Globbing模式会按照它们所处的先后位置进行匹配。你可以将上
 			}	
 		}
 	})
-```
 
 ### 实施图像sprites
 
@@ -227,7 +213,6 @@ Sprites可以看成是对图像的打包，也就是将多个零散的图片文�
 
 我推荐你使用`grunt-spritesmith`插件。它的配置选项如下所示：
 
-```javascript
 	grunt.initConfig({
 		sprite: {
 			icons: {
@@ -237,7 +222,6 @@ Sprites可以看成是对图像的打包，也就是将多个零散的图片文�
 			}	
 		}
 	})
-```
 
 ### 任务别名
 
@@ -260,7 +244,6 @@ Sprites可以看成是对图像的打包，也就是将多个零散的图片文�
 你需要使用`grunt-contrib-clean`插件，它提供了一个`clean`任务用于帮助你完成清除任务。在任务的配置中，
 你需要提供需要清理的目标名，然后再目标名后通过globbing模式指定要清除文件路径。配置如下：
 
-```javascript
 	grunt.initConfig({
 		clean: {
 			js: 'build/js',
@@ -268,7 +251,6 @@ Sprites可以看成是对图像的打包，也就是将多个零散的图片文�
 			less: 'public/**/*.css'
 		}		
 	})
-```
 
 ## 例子
 
@@ -279,7 +261,6 @@ Sprites可以看成是对图像的打包，也就是将多个零散的图片文�
 为了示例`Gruntfile.js`文件，我们还安装了官方的`grunt-contrib-copy`和`grunt-contrib-clean`文件用来进行文件的拷贝和清除。
 借助这几个插件，我们编写的一个简单的`Gruntfile.js`文件如下：
 
-	```javascript
 	'use strict';
 	
 	module.exports = function (grunt) {
@@ -319,7 +300,6 @@ Sprites可以看成是对图像的打包，也就是将多个零散的图片文�
 	        }
 	    });
 	};
-	```
 
 一个Gruntfile通常由下面几部分组成：
 
