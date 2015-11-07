@@ -67,6 +67,7 @@ category: technique
 并且将服务器返回的结果发送给客户端。
 
 关于反向代理的更多内容，建议你阅读[这篇文章](http://www.cnblogs.com/edisonchou/p/4126742.html)。
+关于如何利用nginx来为node配置方向代理的实践，可以参考[这篇博文](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04)。
 
 **解释：**这个问题用于检查被面试者是否有实际运行Node应用的经验。
 
