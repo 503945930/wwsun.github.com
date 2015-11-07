@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 深入浅出Koa：第一部分
+title: 深入浅出Koa（1）：生成器和Thunk函数
 category: technique
 ---
 
@@ -171,9 +171,9 @@ value的值即为`yield`后表达式的值，done表示是否结束。再次调�
 
 ### Thunks
 
-如果要彻底理解Koa，Thunks是另一个需要搞懂的重要概念。Thunk函数主要用于辅助调用另一个函数。
-某种程度上，你可以将它与惰性计算（lazy evaluation）联系起来。对我们而言，
-它的最大作用是将一个Node程序中函数的参数中的回调函数移动到函数调用的外部。举个例子来说明一下：
+如果要彻底理解Koa，Thunk是另一个需要搞懂的重要概念。Thunk函数是一个偏函数，执行它会得到一个新的只带一个回调参数的函数。
+某种程度上，我们可以将它与[lazy evaluation](http://www.wikiwand.com/zh-cn/%E6%83%B0%E6%80%A7%E6%B1%82%E5%80%BC)联系在一起。
+我们来看一下例子：
 
 	var read = function(file) {
 		return function(cb) {
@@ -183,8 +183,9 @@ value的值即为`yield`后表达式的值，done表示是否结束。再次调�
 	
 	read('package.json')(function (err, str){});
 
-上面我们构造的函数中，并没有在`read()`函数的参数中使用回调函数，而是在`read()`函数的外部使用了回调函数。
-我们可以称`read()`函数是一个thunk函数。
+上面的示例代码中，`read`函数时一个典型的Thunk函数，执行`read('package.json')`后我们可以获得一个只有回调参数的新函数。
+
+### Thunkify
 	
 我们可以利用一个叫[thunkify](https://github.com/visionmedia/node-thunkify)小模块，
 将普通的node函数转换为thunk函数。你可能会问，我们为什么需要这么做？因为我们在使用生成器函数，
