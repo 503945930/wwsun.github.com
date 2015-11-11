@@ -108,6 +108,73 @@ category: technique
 `add5`和`add10`都是闭包。它们共享相同的函数体定义，但是存放了不同的环境。
 在add5的环境中，x的值为5, 而在add10的环境中，x的值为10。
 
+## 闭包的三个事实
+
+付出努力掌握闭包将会给你带来超值的回报。理解闭包的三个事实：
+
+1. JavaScript允许你引用在当前函数意外定义的变量（依赖于词法作用域的作用）
+
+	```javascript
+	function makeSandwich() {
+		var magicIngredit = "peanut butter";
+		function make(filling) {
+			return magicIngredient + " and " + filling;	
+		}	
+		return make("jelly");
+	}
+	
+	makeSandwich(); // "peanut butter and jelly"
+	```
+	
+2. 即使外部函数已经返回，当前函数仍然可以引用外部函数所定义的变量
+
+	```javascript
+	function sandwichMaker() {
+	var magicIngredient = "peanut butter";
+	function make(filling) {
+		return magicIngredient + " and " + filling;	
+	}	
+	return make;
+	}
+	
+	var f = sandwichMaker();
+	f("jelly"); 		// "peanut butter and jelly"
+	f("bananas");		// "peanut butter and bananas"
+	f("marshmallows");	// "peanut butter and marshmallorws"
+	```
+
+  `f`的值实际上是内部返回的`make`函数，调用`f`也就是调用`make`。但即使`sandwichMaker`函数已经返回，
+  `make`函数仍然能记住`magicIngredient`。
+  
+  JavaScript中函数时一等公民，函数包含了比调用它们执行时所需要的代码还要多的信息。并且，
+  JavaScript函数值还在内部存储它们可能会引用的定义在其封闭作用域的变量。
+  **那些在其所涵盖的作用域内跟踪变量的函数被称为闭包**。
+  
+  所以，`make`就是一个闭包，起代码引用了两个外部变量：`magicIngredient`和`filling`。
+  每当`make`函数被调用时，其代码都能引用到这两个变量，因为该闭包存储了这两个变量。
+  
+3. 闭包可以更新外部变量的值。
+
+  实际上，闭包存储的是外部变量的引用，而不是它们的值的副本。因此，对于任何具有访问这些外部变量的闭包，
+  都可以进行更新。看一个例子就明白了：
+  
+    ```javascript
+	function box() {
+		var val = undefined;
+		return {
+			set: function (newVal) { val = newVal; },
+			get: function () { return val; },
+			type: function () { return typeof val; }	
+		};
+	}
+	
+	var b = box();
+	b.type();		// "undefined"
+	b.set(87.6);
+	b.get();		// 97.6
+	b.type();		// "number"
+	```
+
 ## 闭包实战
 
 上面我们已经讲完了闭包的理论部分，下面我们试着从实战角度看看闭包的具体应用。
@@ -326,7 +393,7 @@ JavaScript代码如下：
 ## 性能问题
 
 由于闭包会携带包含它的函数的作用域，因此会比其他函数占用更多的内存，
-过多使用闭包会使内存被占用过多，因此需要慎重使用闭包。。
+过多使用闭包会使内存被占用过多，因此需要慎重使用闭包。
 
 例如，在创建新的对象或者类时，方法通常应该关联于对象的原型，而不是定义到对象的构造器中。
 原因是这将导致每次构造器被调用，方法都会被重新赋值一次（也就是说，为每一个对象的创建）。
@@ -377,10 +444,11 @@ JavaScript代码如下：
 在前面的例子中，被继承的原型可以被所有对象所贡献，并且方法定义也无需在每个对象创建时重新书写。
 你可以参考JavaScirpt的[对象模型](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model)了解更多的内容。
 
-###References
+## References
 
 1. http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html
 1. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 1. JavaScript高级程序设计，第3版，第7章
 1. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Closures
 1. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
+1. Effective JavaScript, ch2, Item 11
