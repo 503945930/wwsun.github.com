@@ -14,19 +14,22 @@ category: technique
 
 ### 基础知识
 
-为什么要用Grunt？自动化你的任务，诸如代码最小化、代码编译、单元测试、代码规范校验等等重复的任务，你必须要做的工作越少，你的工作就变得越简单，从而避免重复人工操作中的误操作。Grunt同样依赖于Node，使用NPM进行安装。通过文件`Gruntfile`进行配置任务流程，这样你和你的团队就可以在之后非常简单的执行这些任务。
 
-安装Grunt前，首先要确保你的Node和NPM处于新版本。你可以使用如下命令升级NPM：
-	
-	npm update -g npm
+Grunt是一个基于JavaScript的构建工具。和很多构建工具（`make`, `ant`）类似，Grunt主要用来自动化你的任务，
+诸如代码最小化、代码编译、单元测试、代码规范校验等等重复的任务，你必须要做的工作越少，你的工作就变得越简单，
+从而避免重复人工操作中的误操作。Grunt同样依赖于Node，使用NPM进行安装。通过文件`Gruntfile`进行配置任务流程，
+这样你和你的团队就可以在之后非常简单的执行这些任务。
 
-我们需要知道的是，Grunt包括三大组成部分：GruntJS CLI, GruntJS Task Runner, Grunt Plugins，分别代表Grunt的命令行工具、任务运行器、和插件库。
+Grunt主要包括三个部分：
 
-Grunt基本的三个概念分别为：Task, Target, Options
+- GruntJS CLI 命令行工具
+- GruntJS Task Runner 任务运行期
+- Grunt Plugins 插件库
 
 ### 安装Grunt
 
-为了能够在任何目录中都能使用grunt，首先你需要全局安装Grunt-cli，它是grunt的命令行工具，
+为了能够在任何目录中都能使用grunt，首先你需要全局安装`grunt-cli`，它是grunt的命令行工具，
+它并不会提供Grunt构建功能，而只是一个Grunt的调用器。
 安装完之后，你可以在命令行中直接使用grunt（安装过程可能需要你具备管理员权限）。
 
 	npm install -g grunt-cli
@@ -36,7 +39,7 @@ Grunt基本的三个概念分别为：Task, Target, Options
 CLI载入本地安装的Grunt库，应用`Gruntfile`中的配置项，执行你所请求的任务。
 你可以通过[链接页面](https://github.com/gruntjs/grunt-cli/blob/master/bin/grunt)查看grunt的源代码。
 
-为了能够使用grunt，接下来你需要创建项目的`package.json`清单文件，该文件用于描述该Node项目。
+为了在项目中使用grunt，接下来你需要创建项目的`package.json`清单文件，该文件用于描述该Node项目。
 关于[package.json](https://docs.npmjs.com/files/package.json)的更多信息请参考相关文档。
 然后将grunt添加到在`package.json`文件总的依赖列表中即可。
 
@@ -319,6 +322,7 @@ Sprites可以看成是对图像的打包，也就是将多个零散的图片文�
 
 ## References
 
+1. http://icodeit.org/2013/10/using-grunt-as-your-build-tool/
 1. https://github.com/gruntjs/grunt-cli/blob/master/bin/grunt
 2. http://gruntjs.com/configuring-tasks
 3. https://github.com/sindresorhus/load-grunt-tasks
