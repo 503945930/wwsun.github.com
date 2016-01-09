@@ -15,6 +15,8 @@ category: technique
 
 > 原文地址：http://apmblog.dynatrace.com/2015/11/04/understanding-garbage-collection-and-hunting-memory-leaks-in-node-js/
 
+> 译者：[景庄](http://wwsun.github.com)，东南大学学生，主要关注前端工程化技术、Node.js、ES6、React等。
+
 ## Node.js内存管理
 
 不同于PHP这样的平台，Node.js应用是一个一直运行的进程。虽然这种机制有很多的优点，例如在配置数据库连接信息时，
