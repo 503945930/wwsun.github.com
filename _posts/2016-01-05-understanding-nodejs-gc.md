@@ -39,7 +39,7 @@ V8的内存管理模式有点类似于[Java虚拟机（JVM）](http://wwsun.gith
 - 栈 Stack：包括所有的携带指针引用堆上对象的值类型（原始类型，例如整型和布尔），以及定义程序控制流的指针。
 - 堆 Heap：用于保存引用类型（包括对象、字符串和闭包）的内存段
 
-![v8 memory scheme](/img/posts/151119-v8-memory-scheme.png)
+![v8 memory scheme](http://7xpv9g.com1.z0.glb.clouddn.com/img160105-v8-memory-scheme.png)
 
 在Node.js中，当前的内存使用情况可以轻松的使用[`process.memoryUsage()`](https://nodejs.org/api/process.html#process_process_memoryusage)进行查询，
 实例程序如下：
@@ -64,7 +64,7 @@ V8的内存管理模式有点类似于[Java虚拟机（JVM）](http://wwsun.gith
 
 我们可以利用这个函数来记录不同时间的内存使用情况，并利用这些数据绘制成一张图从而更清晰的展示V8是如何处理内存的。
 
-![node.js memory usage](/img/posts/151119-v8-memory-usage.png)
+![node.js memory usage](http://7xpv9g.com1.z0.glb.clouddn.com/img160105-v8-memory-usage.png)
 
 图中最顶端的橙色线条为RSS（驻留集大小），接下来红色线条表示堆的总值，表现的最为不稳定的部分是黄色线条，
 它所表示的是已使用的堆的大小，虽然线条不停的抖动，但总是维持在一定的边界值内保持一个稳定中位数。
@@ -84,7 +84,7 @@ V8的内存管理模式有点类似于[Java虚拟机（JVM）](http://wwsun.gith
 垃圾回收背后的理论非常的简单：如果内存段不再被其他地方引用，我们便可以假设它已经不再被使用，因此，就可以释放这片内存段。
 然而， 检索和维护这些信息是非常复杂的，因为这可能会涉及到引用之间的相互链接，从而形成一个复杂的图结构。
 
-![A Heap Graph](/img/posts/151119-memory-heap-graph.png)
+![A Heap Graph](http://7xpv9g.com1.z0.glb.clouddn.com/img160105-memory-heap-graph.png)
 
 在上面的堆图中，如果红色的对象不再有引用指向它的话，那么该对象就可以被丢弃（释放内存）。
 
@@ -103,7 +103,7 @@ V8的内存管理模式有点类似于[Java虚拟机（JVM）](http://wwsun.gith
 
 返回的对象表示了垃圾回收的类型和持续时间。再一次的，我们可以轻松的利用可视化图形来更好的理解它是如何工作的。
 
-![duration and ferquency of gc runs](/img/posts/151119-duraction-and-frequency-of-gc-runs.png)
+![duration and ferquency of gc runs](http://7xpv9g.com1.z0.glb.clouddn.com/img160105-duraction-and-frequency-of-gc-runs.png)
 
 我们可以发现Scavenge Compact运行的比Mark Sweep更为频繁。根据应用的复杂程度这可能会存在一定的变化。
 有意思的是，上面的图形也展现了频繁却非常短的Mark-Sweep运行状况，这也跟运行的函数有关。
@@ -113,11 +113,11 @@ V8的内存管理模式有点类似于[Java虚拟机（JVM）](http://wwsun.gith
 既然有垃圾回收器来负责内存清理，那么为什么我们还需要关心这个呢？事实上，这仍然会有可能发生内存泄漏，
 你的日志记录可能会记录这些信息。
 
-![exception caused by memory leak](/img/posts/151119-memory-leak.png)
+![exception caused by memory leak](http://7xpv9g.com1.z0.glb.clouddn.com/img160105-memory-leak.png)
 
 当内存泄漏出现的时候，内存可能会出现堆积的情况，如图所示。
 
-![memory leak in progress](/img/posts/151119-memory-leak-in-progress.png)
+![memory leak in progress](http://7xpv9g.com1.z0.glb.clouddn.com/img160105-memory-leak-in-progress.png)
 
 垃圾回收（GC）机制会尽可能的回收内存，但是每次运行GC都会导致一定的损耗。我们发现在上图中，堆内存的使用处于一个不断攀升的过程，
 这通常意味着内存泄漏的发生。使用这些信息，我们能够较为方便的判断是否出现了内存泄漏，
@@ -132,7 +132,7 @@ V8的内存管理模式有点类似于[Java虚拟机（JVM）](http://wwsun.gith
 在这里我并不会覆盖核心的代码错误。而是来看一个难以追踪的内存泄漏案例，通过这个例子能够让你在自己的JavaScript代码中定位错误，
 这个例子来源于[Meteor的博客](http://info.meteor.com/blog/an-interesting-kind-of-javascript-memory-leak)。
 
-![introducing a leak into your own javascript code](/img/posts/151119-leak-example.png)
+![introducing a leak into your own javascript code](http://7xpv9g.com1.z0.glb.clouddn.com/img160105-leak-example.png)
 
 这段代码刚看到的时候并没有发现有什么问题。我们可以认为`theTing`在每次调用`replaceThing()`的时候都会被覆写。
 问题就是`someMethod`拥有作为上下文的封闭作用域。这意味着`unused()`是在`someMethod()`内部的，甚至`unused()`从未被调用过，
@@ -147,12 +147,12 @@ V8提供了一种方法用于转储（导出）当前的堆，并且v8-profiler�
 因此你可以通过为这个模块关闭和增加一些提示工具的方式来模拟。在Chrome中也提供了类似的堆空间转储功能，
 并且你可以直接通过Chrome开发者工具来分析v8-profiler的转储文件。
 
-![v8-profiler in chrome](/img/posts/151119-v8-profiler-in-chrome.png)
+![v8-profiler in chrome](http://7xpv9g.com1.z0.glb.clouddn.com/img160105-v8-profiler-in-chrome.png)
 
 单一的堆转储可能并不能帮助你，因为它不能展示堆随着时间变化的增长过程。这就是为什么Chrome开发者工具允许你对比不同的内存概况文件。
 你可以通过比较两个专注文件来获得差值，这样可以让你观察到内存占用的变化情况。如下图所示：
 
-![heap dump comparison](/img/posts/151119-heap-dump-comparison.png)
+![heap dump comparison](http://7xpv9g.com1.z0.glb.clouddn.com/img160105-heap-dump-comparison.png)
 
 这里能够看到一些问题所在，`longStr`变量包含着一些星号组成的字符串，并且被`originalThing`所引用，并且也被一些方法所引用，
 然后也被……当然，你能看意识到这点。这里有一个非常长的引用路径，闭包上下文会导致`longStr`长期占用内存，并且得不到释放。
