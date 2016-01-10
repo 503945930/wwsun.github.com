@@ -5,61 +5,51 @@ title: "景庄 - Weiwei SUN"
 {% include JB/setup %}
 
 <div id="primary" class="content-area">
-<div id="main" class="site-main" role="main">
+    <div id="main" class="site-main" role="main">
   
-<article class="post type-post hentry">
-  
-{% for post in paginator.posts %}
-{% if post.category != 'works'%}
-{% if post.category != "courses" %}
-{% if post.category != "activities" %}
-{% capture summary %}{{post.content | split:'<!--more-->' |first }}{% endcapture%}
+        <article class="post sticky hentry">
+        
+        {% for post in paginator.posts %}
+        {% if post.category != 'works'%}
+        {% if post.category != "courses" %}
+        {% if post.category != "activities" %}
+        {% capture summary %}{{post.content | split:'<!--more-->' |first }}{% endcapture%}
 
-<div class="blog-item-wrap">
-  <div class="post-inner-content">
-    <header class="entry-header page-header">
-      <h2 class="entry-title">
-        <a href="{{ BASE_PATH }}{{ post.url }}" rel="bookmark">{{ post.title }}</a>
-      </h2>
-      <div class="entry-meta">
-        <span class="posted-on">
-          <i class="fa fa-calendar"></i>
-          <a rel="bookmark"><time class="entry-date published">{{ post.date | date: "%b %-d, %Y" }}</time></a>
-        </span>
-        <span class="byline">
-          <i class="fa fa-user"></i>
-          <span class="author vcard">
-            <a class="url fn n" href="http://bootstrapbay.com/blog/author/gimmer/">Weiwei SUN</a>
-          </span>
-        </span>
-      </div>
-      <!-- .entry-meta -->
-    </header>
-    <!-- .entry-header -->
-    <div class="entry-content">{{summary}}</div>
-    <!-- .entry-content -->{% if summary != post.content %} {% endif %}</div>
-</div>
+            <div class="blog-item-wrap">
+                <div class="post-inner-content">
+                    <header class="entry-header page-header">
+                        <h2 class="entry-title"><a href="{{ BASE_PATH }}{{ post.url }}" rel="bookmark">{{ post.title }}</a></h2>
+                        <div class="entry-meta">
+                            <span class="posted-on"><i class="fa fa-calendar"></i>
+                                <a rel="bookmark"><time class="entry-date published">{{ post.date | date: "%b %-d, %Y" }}</time></a>
+                            </span>
+                        </div><!-- .entry-meta -->
+                    </header>
+                    <div class="entry-content">{{summary}}</div>
+                    {% if summary != post.content %} {% endif %}
+                </div>
+            </div>
 
-{% endif %}
-{% endif %}
-{% endif %}
-{% endfor %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
 
-</article>
+        </article>
 
-<!-- Pagination links -->
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path }}" class="btn btn-default btn-sm">Previous</a>
-  {% else %}
-    <span class="previous">Previous</span>
-  {% endif %}
-  <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" class="btn btn-default btn-sm">Next</a>
-  {% else %}
-    <span class="next ">Next</span>
-  {% endif %}
-</div>
-</div>
-</div>
+        <!-- Pagination links -->
+        <div class="pagination">
+        {% if paginator.previous_page %}
+            <a href="{{ paginator.previous_page_path }}" class="btn btn-default btn-sm">Previous</a>
+        {% else %}
+            <span class="previous">Previous</span>
+        {% endif %}
+            <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+        {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path }}" class="btn btn-default btn-sm">Next</a>
+        {% else %}
+            <span class="next ">Next</span>
+        {% endif %}
+        </div><!--#pageination-->
+    </div><!--#main-->
+</div><!--#primary-->
