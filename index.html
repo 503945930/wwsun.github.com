@@ -8,14 +8,13 @@ title: "景庄 - Weiwei SUN"
     <div id="main" class="site-main" role="main">
   
         <article class="post sticky hentry">
-        
-        {% for post in paginator.posts %}
-        {% if post.category != 'works'%}
-        {% if post.category != "courses" %}
-        {% if post.category != "activities" %}
-        {% capture summary %}{{post.content | split:'<!--more-->' |first }}{% endcapture%}
-
             <div class="blog-item-wrap">
+            {% for post in paginator.posts %}
+            {% if post.category != 'works'%}
+            {% if post.category != "courses" %}
+            {% if post.category != "activities" %}
+            {% capture summary %}{{post.content | split:'<!--more-->' |first }}{% endcapture%}
+            
                 <div class="post-inner-content">
                     <header class="entry-header page-header">
                         <h2 class="entry-title"><a href="{{ BASE_PATH }}{{ post.url }}" rel="bookmark">{{ post.title }}</a></h2>
@@ -28,13 +27,12 @@ title: "景庄 - Weiwei SUN"
                     <div class="entry-content">{{summary}}</div>
                     {% if summary != post.content %} {% endif %}
                 </div>
+            
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
             </div>
-
-        {% endif %}
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-
         </article>
 
         <!-- Pagination links -->
