@@ -1,5 +1,9 @@
 #  BLOG Introduction
 
+###[2016-01-10]
+
+Update the layouts, decreasing the useless requests and assets.
+
 ###[2014-10-6]
 A new UI... which based on Bootstrap developed by myself. The whole site has been redesigned, including the UI of all pages, function logic, and also the 3rd party add-ons. However, some bugs already existed.
 
