@@ -16,7 +16,7 @@ I will Graduate in June 2016, expect the internship or full-time job in Full-sta
 
 ## Experiences
 
-1. **2015年08月**，受邀加入[CSDN](http://www.csdn.net/)兼职翻译团队，主要关注ES6, Node, React, Angular, Java EE。
+1. **2015年08月**，受邀加入[CSDN研发频道](http://www.csdn.net/)兼职翻译团队，主要关注ES6, Node, React, Angular, Java EE。
 2. **2015年06月**，进入阿里巴巴[ICBU技术部](http://www.alibaba.com/)实习，实习内容为Node.js中间件技术、前端全栈应用开发（Koa\React\Webpack）。
 1. **2015年06月**，受邀参与[Packt](https://www.packtpub.com/)出版社[MongoDB for Java Developers](https://www.packtpub.com/application-development/mongodb-java-developers)一书的评审，并完成全书的审稿任务。
 1. **2015年03月**，受邀参与IBM Connect 2015大会移动分会场颁奖环节，我的作品iTravel记忆拼图获得了2014年IBM全国高校移动创新应用开发大赛亚军。
