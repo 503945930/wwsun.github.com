@@ -17,7 +17,7 @@ Ajax的兴起是由于Google的Gmail所带动的，随后被广泛的应用到�
 
 > 原文地址： http://www.sitepoint.com/introduction-to-the-fetch-api/
 
-**译者：**景庄，前端开发工程师，主要关注于前端工程化技术、Node.js、React等。
+**译者：**景庄，Web开发工程师，主要关注于前端工程化技术、Node.js、React等。
 
 ## Fetch API
 
