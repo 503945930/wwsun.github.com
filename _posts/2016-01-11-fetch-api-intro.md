@@ -31,33 +31,37 @@ Fetch API还未被所有的浏览器支持。因此，如果你想体验这一�
 
 来看看第一个任务：我们使用API来从Flicker中检索一些有关”企鹅“的照片，并将它们展示在也没中，代码如下。
 
-	/* API URL, you need to supply your API key */
-	var URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=your_api_key&format=json&nojsoncallback=1&tags=penguins';
-	
-	function fetchDemo() {
-		fetch(URL).then(function(response) {
-			return response.json();
-		}).then(function(json) {
-			insertPhotos(json);
-		});
-	}
-	
-	fetchDemo();
-	
+```javascript
+/* API URL, you need to supply your API key */
+var URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=your_api_key&format=json&nojsoncallback=1&tags=penguins';
+
+function fetchDemo() {
+    fetch(URL).then(function(response) {
+        return response.json();
+    }).then(function(json) {
+        insertPhotos(json);
+    });
+}
+
+fetchDemo();
+```
+   
 上面的代码看起来很简单：首先是构造请求的URL，然后将URL传递给全局的`fetch()`方法，它会立刻返回一个Promise，
 当Promise被通过，它会返回一个`Response`对象，通过该对象的`json()`方法可以将结果作为JSON对象返回。
 `response.json()`同样会返回一个`Promise`对象，因此在我们的例子中可以继续链接一个`then()`方法。
 
 为了能够和传统的`XMLHttpRequest`进行对比，我们使用传统的方法来编写一个同样功能的函数：
 
-	function xhrDemo() {
-		var xhr = new XMLHttpRequest();
-		xhr.onload = function() {
-			insertPhotos(JSON.parse(xhr.responseText));
-		};
-		xhr.open('GET', URL);
-		xhr.send();
-	}
+```javascript
+function xhrDemo() {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        insertPhotos(JSON.parse(xhr.responseText));
+    };
+    xhr.open('GET', URL);
+    xhr.send();
+}
+```
 
 可以发现，主要的不同点在于：传统上我们会使用事件处理器，而不是Promise对象。
 并且请求的发起完全依赖于`xhr`对象所提供的方法。
@@ -77,12 +81,14 @@ Fetch API还未被所有的浏览器支持。因此，如果你想体验这一�
 第一个参数是请求的URL，第二个参数是一个选项对象，用于配置请求。请求对象一旦创建了，
 你便可以将所创建的对象传递给`fetch()`方法，用于替代默认的URL字符串。示例代码如下：
 
-	var req = new Request(URL, {method: 'GET', cache: 'reload'});
-	fetch(req).then(function(response) {
-		return response.json();
-	}).then(function(json) {
-		insertPhotos(json);
-	});
+```javascript
+var req = new Request(URL, {method: 'GET', cache: 'reload'});
+fetch(req).then(function(response) {
+  return response.json();
+}).then(function(json) {
+  insertPhotos(json);
+});
+```
 	
 上面的代码中我们指明了请求使用的方法为`GET`，并且指定不缓存响应的结果。
 
@@ -90,39 +96,45 @@ Fetch API还未被所有的浏览器支持。因此，如果你想体验这一�
 新的请求和旧的并没有什么不同，但你可以通过稍微调整配置对象，将其用于不同的场景。
 例如，你可以基于原有的GET请求创建一个POST请求，它们具有相同的请求源。代码如下：
 
-	// 基于req对象创建新的postReq对象
-	var postReq = new Request(req, {method: 'POST'});
-	
+```javascript
+  // 基于req对象创建新的postReq对象
+  var postReq = new Request(req, {method: 'POST'});
+```
+    
 每个`Request`对象都有一个`header`属性，在Fetch API中它对应了一个`Headers`对象。
 通过`Headers`对象，你能够修改请求头。不仅如此，对于返回的响应，你还能轻松的返回响应头中的各个属性。
 但是需要注意的是，响应头是只读的。
 
-	var headers = new Headers();
-	headers.append('Accept', 'application/json');
-	var request = new Request(URL, {headers: headers});
-	
-	fetch(request).then(function(response) {
-		console.log(response.headers);
-	});
+```javascript
+var headers = new Headers();
+headers.append('Accept', 'application/json');
+var request = new Request(URL, {headers: headers});
+
+fetch(request).then(function(response) {
+    console.log(response.headers);
+});
+```
 	
 在上面的代码中，你可以通过`Headers`构造器来获取这个对象，用于为新的`Request`对象配置请求头。
 
 相似的，你可以创建一个`Response`对象：
 
-	function responseDemo() {
-		var headers = new Headers({
-			'Content-Type': 'application/json',
-			'Cache-Control': 'max-age=3600'
-		});
-		
-		var response = new Response(
-			JSON.stringify({photos: {photo: []}}),
-				{status: 200, headers: headers}
-		);
-		response.json().then(function(json) {
-			insertPhotos(json);
-		});
-	}
+```javascript
+function responseDemo() {
+    var headers = new Headers({
+        'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=3600'
+    });
+    
+    var response = new Response(
+        JSON.stringify({photos: {photo: []}}),
+            {status: 200, headers: headers}
+    );
+    response.json().then(function(json) {
+        insertPhotos(json);
+    });
+}
+```
 	
 `Request`和`Response`都完全遵循HTTP标准。如果你曾经使用过某种服务器端语言，你应该对它们很熟悉。
 但是对于浏览器而言创建HTTP响应的要点是什么？总之，你不能将它发送给其他人。但是，
@@ -146,17 +158,19 @@ Fetch API足够底层，因为[当前的WHATWG标准定义了`XMLHttpRequest.sen
 Fetch中的`Response.body`实现了`getReader()`方法用于渐增的读取原始字节流。
 例如，如果照片列表过大而放不进内存的话，你可以使用下面的方法来处理：
 
-	function streamingDemo() {
-		var req = new Request(URL, {method: 'GET', cache: 'reload'});
-		fetch(req).then(function(response) {
-			var reader = response.body.getReader();
-			return reader.read();
-		}).then(function(result, done) {
-			if (!done) {
-			// do something with each chunk
-			}
-		});
-	}
+```javascript
+function streamingDemo() {
+    var req = new Request(URL, {method: 'GET', cache: 'reload'});
+    fetch(req).then(function(response) {
+        var reader = response.body.getReader();
+        return reader.read();
+    }).then(function(result, done) {
+        if (!done) {
+        // do something with each chunk
+        }
+    });
+}
+```
 
 在上面的代码中处理器函数一块一块的接收响应体，而不是一次性的。当数据全部被读完后会将`done`标记设置为true。
 在这种方式下，每次你只需要处理一个chunk，而不是一次性的处理整个响应体。
