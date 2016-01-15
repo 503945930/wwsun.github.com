@@ -24,4 +24,9 @@ The main programming languages of mine are: Java, JavaScript, Node.js.
 1. **2015年03月**，受邀成为[稀土掘金](http://gold.xitu.io/)首批[co-editors](http://gold.xitu.io/#/about)。
 4. **2014年11月**，于北京参加中国计算机协会前沿技术讲习班(CCF ADL53: 数据驱动的软件开发与演化)。
 5. **2014年09月**，于山西太原参加全国数据库学术会议(NDBC 2014)。
-6. **2014年06月**，参与[Monash English Bridging](http://www.monash.edu/)，时长2个月，并通过全部课程考核（相当于雅思6分）。
+6. **2014年06月**，于苏州参与[Monash English Bridging](http://www.monash.edu/)，时长2个月，并通过全部课程考核（相当于雅思6分）。
+
+<h2 class="text-center">Statement</h2>
+
+本博客是一个非盈利的个人技术博客，内容主要以国外优秀的博文翻译、个人见解、技术总结为主，由于部分文章来源于外文站点，
+所有翻译版本均为本站博主独立进行，如果某些博文侵犯了您的权利，可以及时联系本站博主（_ww.sun@outlook.com_）进行删除。
