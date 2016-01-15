@@ -1,5 +1,13 @@
 markdown: kramdown
 highlighter: pygments
+markdown: redcarpet
+redcarpet:
+  extensions:
+    - fenced_code_blocks
+    - no_intra_emphasis
+    - strikethrough
+    - autolink
+    - tables
 safe: false
 paginate: 10
 paginate_path: "page:num"
