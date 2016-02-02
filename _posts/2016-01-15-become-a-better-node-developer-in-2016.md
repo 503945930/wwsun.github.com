@@ -234,6 +234,30 @@ Promise.resolve(() => 'John')
 
 养成每周更新一次你的项目依赖的习惯。这方面，你可以使用`npm outdated`或者是[ncu](https://www.npmjs.com/package/npm-check-updates)包。
 
+以ncu为例，首先全局安装ncu：
+
+    npm install -g npm-check-updates
+    
+在项目根目录执行`ncu`命令：
+
+    $ ncu
+    
+    express           4.12.x  →   4.13.x
+    multer            ^0.1.8  →   ^1.0.1
+    react-bootstrap  ^0.22.6  →  ^0.24.0
+    react-a11y        ^0.1.1  →   ^0.2.6
+    webpack          ~1.9.10  →  ~1.10.5
+    
+    Run with -u to upgrade your package.json
+    
+更新项目依赖
+
+    $ ncu -u
+    
+    express           4.12.x  →   4.13.x
+    
+    package.json upgraded
+
 ## 选择合适的数据库
 
 当我们谈到Node.js和数据库的时候，可能你想到的第一个技术是MongoDB。当然这并没有什么错，但是你不应该直接就去使用它。
