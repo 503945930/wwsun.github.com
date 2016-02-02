@@ -1,4 +1,6 @@
 markdown: kramdown
+kramdown:
+  extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
 highlighter: rouge
 redcarpet:
   extensions:
