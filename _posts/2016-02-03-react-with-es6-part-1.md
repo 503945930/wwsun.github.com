@@ -12,6 +12,7 @@ React是一个能够实现简单优雅的组件化方案的库。借助React能�
 ## Statement
 
 - **作者：** [景庄](http://wwsun.github.com)，Web开发者，主要关注JavaScript、Node.js、React、Docker等。
+- **源码：** 本文的源代码地址：https://github.com/wwsun/react-es6-tutorial
 
 ## 工具说明
 
@@ -260,6 +261,13 @@ class Root extends React.Component {
 
 export default Root;
 ```
+
+### 组件的命名规则
+
+这里我建议使用JavaScript的常用命名规则，即：
+
+- 对于文件名，多个单词使用`-`分隔，单词均使用小写，例如`hello-world.jsx`。
+- 对于组件名，名称与文件名相同，但使用Java的大驼峰的类名规则，例如`HelloWorld`。
 
 ## 测试及启动
 
