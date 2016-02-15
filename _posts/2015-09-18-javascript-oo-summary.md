@@ -20,92 +20,97 @@ prototype就是通过调用构造而创建的那个对象实例的原型对象�
 基于原型的编程不是面向对象编程中体现的风格，且行为重用（在基于类的语言中也称为继承）
 是通过装饰它作为原型的现有对象的过程实现的。这种模式也被称为弱类化，原型化，或基于实例的编程。
 
-## 类
+## 类和对象
 
-JavaScript是一种基于原型的语言，在ES6之前，它没有类的声明语句。通常做法是，使用函数声明作为类的声明。
-定义一个类和定义一个函数一样简单。例如我们要定义一个新类`Person`。
+JavaScript是一种基于原型的语言，在ES6之前我们在JavaScript创建对象的方法都是创建一个构造函数，
+然后为函数的原型对象添加方法。
 
-	function Person() { } // 注意区别于函数定义，类名需要大写
+### 混合使用构造函数和原型
 
-## 创建对象（类的实例）
-
-在JavaScript中最常用的创建对象的方式为组合使用构造函数模式和原型模式。使用构造函数定义实例属性，
-而原型模式用于定义方法和共享的属性。结果，每个实例都会有自己的一份实例属性的副本，但同时又共享着对方法的引用，
-最大限度的节省了内存。此外，你还可以向构造函数传递参数。
+使用构造函数定义实例属性，而原型模式用于定义方法和共享的属性。结果，每个实例都会有自己的一份实例属性的副本，
+但同时又共享着对方法的引用，最大限度的节省了内存。此外，你还可以向构造函数传递参数。
 
 在实例化时构造器被带调用。构造器是对象中的一个方法。在JavaScript中函数就可以作为构造器使用，
 因此不需要特别定义一个构造器方法。构造器常用于给对象的属性赋值或者为调用函数做准备。
 
-下面我们来完善`Person`类的定义，首先我们使用构造函数定义实例属性如下：
+下面我们为`Animal`类定义了一个属性`name`。
 
-	function Person(name, age, job){
-		this.name = name;
-		this.age = age;
-		this.job = job;
-	}
+```javascript
+function Animal() {
+  this.name = name;
+}
 
+Animal.prototype.getName = function () {
+  return this.name;
+}
+```
 
-上面我们为`Person`定义了三个属性：`name`,`age`,`job`。
+也就是说，在JavaScript中，类的声明就是函数的声明，定义一个类也就是定一个函数。
+不过，我们类函数通常首字母为大写。例如上面我们定义的`Animal`。
 
-为了能够进一步完善Person对象，可以使用原型模式为其添加实例方法`sayName()`：
+而通过ES6定义一个类则要简单的多，使用`class`关键字即可：
 
-	Person.prototype = {
-		constructor: Person,
-		sayName : function () {
-			console.log(this.name);
-		}
-	};
+```javascript
+class Animal {
+  constructor () {
+    this.name = name;
+  }
+  
+  getName () {
+    return this.name;
+  }
+```
 
-`Person.prototype`是一个可以被`Person`的所有实例共享的对象。它是一个名叫原型链（Prototype Chain）的查询链的一部分：
-当你试图访问一个`Person`没有定义的属性时，解释器会首先检查这个`Person.prototype`来判断是否存在这样一个属性。
-所以，任何分配给`Person.prototype`的东西对通过`this`对象构造的实例都是可用的。
+为了能够进一步完善`Animal`类，我们使用了原型模式为其添加实例方法`getName()`。
+
+`Animal.prototype`是一个可以被`Animal`的所有实例共享的对象。它是一个名叫原型链（Prototype Chain）的查询链的一部分：
+当你试图访问一个`Animal`没有定义的属性时，解释器会首先检查这个`Animal.prototype`来判断是否存在这样一个属性。
+所以，任何分配给`Animal.prototype`的东西对通过`this`对象构造的实例都是可用的。
 
 方法与属性很相似， 不同的是：一个是函数，另一个可以被定义为函数。 调用方法很像存取一个属性。
-为定义一个方法, 需要将一个函数赋值给类的 prototype 属性; 这个赋值给函数的名称就是用来给对象在外部调用它使用的。
-
-上面我们完成了对`Person`对象的基本定义，其包括三个实例属性和一个实例方法。我们可以使用`new obj`创建`obj`的新实例。
-我们来创建`Person`类的两个实例：
-
-	var person1 = new Person("Weiwei SUN", 25, "Software Engineer");
-	var person2 = new Person("Lily", 21, "student");
-	
-	console.log(person1.sayName()); // Weiwei SUN
-	console.log(person2.sayName()); // Lily
-	console.log(person1.sayName === person2.sayName); //true
-
-注意上面的输出结果，`person1.sayName` 和 `person2.sayName` 引用了相同的函数。在调用函数的过程中，
-`this`的值取决于我们怎么样调用函数。 在通常情况下，我们通过一个表达式person1.sayHello()来调用函数：
-即从一个对象的属性中得到所调用的函数。此时this被设置为我们取得函数的对象（即person1）。
-这就是为什么`person1.sayName()`输出为`Weiwei SUN`，而`person2.sayName()`输出为`Lily`的原因。 
+为定义一个方法, 需要将一个函数赋值给类的`prototype`属性; 这个赋值给函数的名称就是用来给对象在外部调用它使用的。
 
 ## 继承
 
-创建一个或多个类的特定版本类的方式被称为继承（JavaScript只支持单继承）。在JavaScript中，
-继承通过赋予子类一个父类的实例并定制化子类来实现。在ES5中，我们通常用`Object.create`方法来实现继承。
+在JavaScript中，对于子类的解决方案是，创建一个新的构造函数，并且设置其原型为其父类的原型。
+调用父类的构造函数，并将`this`设置为其上下文对象。注意，在JavaScript中只支持单继承。
+在JavaScript中，继承通过赋予子类一个父类的实例并定制化子类来实现。在ES5中，
+我们通常用`Object.create`方法来实现继承。
 
-	// 定义Student的构造器
-	function Student(name, subject) {
-		// 调用父类构造器，确保`this`在调用过程中设置正确
-		Person.call(this, name);
-		this.subject = subject;
-	}
-	
-	// 实现继承：继承自Person.prototype
-	Student.prototype = Object.create(Person.prototype);
-	Student.prototype.constructor = Student;
-	
-	// 为Student加入新的实例方法
-	Student.prototype.sayHello = function () {
-		console.log("Hello, I'm " + this.name + ". I'm studying " + this.subject + ".");
-	};
-	
-	// 测试用例
-	var s1 = new Student('Lulu', 'Math');
-	s1.sayName(); // Lulu
-	s1.sayHello(); // Hello, I'm Lulu. I'm studying Math.
-	
-	console.log(s1 instanceof Student); // true
-	console.log(s1 instanceof Person); // true
+```javascript
+// 定义Dog构造器
+function Dog(name) {
+  Animal.call(this, name); // 调用父类构造器，重新设置绑定`this`值
+}
+
+// 实现继承
+Dog.prototype = Object.create(Animal.prototype);
+
+// 为子类添加新的方法
+Dog.prototype.speak = function () {
+  return "woof";
+};
+
+var dog = new Dog("Scamp");
+console.log(dog.getName() + ' says ' + dog.speak());
+```    
+
+使用ES6实现类的继承则要简单的多，上面的代码可以改写如下：
+
+```javascript
+class Dog extends Animal {
+  constructor(name) {
+    super(name);
+  }
+  
+  speak() {
+    return "woof";
+  }
+}
+
+var dog = new Dog("Scamp");
+console.log(dog.getName() + ' says ' + dog.speak());
+```
 
 ## 封装
 
