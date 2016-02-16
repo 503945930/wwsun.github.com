@@ -234,18 +234,7 @@ module.exports = {
 为了能够使用React来编写应用，我们需要安装React的相关依赖，从0.14开始，React被拆分为了两个包（react和react-dom），
 因此你首先需要安装这两个依赖：`npm install react react-dom --save-dev`。安装好依赖包后，便可以借助React来编写应用了：
 
-首先，我们需要编写React应用的入口文件，通常命名为`main.jsx`：
-
-```javascript
-// src/main.jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Root from './components/root.jsx';
-
-let attachElement = document.getElementById('react-app');
-
-ReactDOM.render(<Root phrase="ES6"/>, attachElement);
-```
+### 根组件： `root.jsx`
 
 React应用组件树的根文件：
 
@@ -261,6 +250,25 @@ class Root extends React.Component {
 
 export default Root;
 ```
+
+
+### 入口： `main.jsx`
+
+然后我们需要编写React应用的入口文件，通常命名为`main.jsx`：
+
+```javascript
+// src/main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Root from './components/root.jsx';
+
+let attachElement = document.getElementById('react-app');
+
+ReactDOM.render(<Root phrase="ES6"/>, attachElement); // 实例化根组件，并启动应用
+```
+
+- `ReactDOM.render()` 实例化根组件，启动框架，并且将标记注入原始的DOM元素中（参数2）。
+- `ReactDOM`模块主要暴露了和DOM相关的方法。
 
 ### 组件的命名规则
 
