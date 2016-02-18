@@ -1,6 +1,6 @@
 ---
 layout: post
-title: `call()`、`apply()`、`bind()`的用法
+title: call()、apply()、bind()的用法
 category: knowledge
 ---
 
