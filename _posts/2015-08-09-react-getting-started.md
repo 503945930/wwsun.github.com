@@ -217,26 +217,33 @@ JSX和HTML有点像，但也有不一样的地方。例如，HTML中的`class`�
 ## 组件生命周期
 
 每个React组件在加载时都有特定的生命周期，在此期间不同的方法会被执行。
-下面简单介绍React组件的生命周期：
+下面简单介绍React组件的生命周期，详细内容请参考[官方文档](https://facebook.github.io/react/docs/component-specs.html#lifecycle-methods)。
 
-### `componentWillMount`
+### Mounting: `componentWillMount`
 
-该方法会在组件`render`之前执行，并且永远只执行一次。
+服务端和客户端都只调用一次，在初始化渲染执行之前立刻调用。如果在这个方法内调用`setState()`，
+`render()`将会感知到更新后的state，尽管state发生了变化，也只执行一次。
 
-### `componentDidMount`
+### Mounting: `componentDidMount`
 
-该方法会在组件加载完毕之后立即执行。此时，组件已经完成了DOM结构的渲染，
-并可以通过`this.getDOMNode()`方法来访问。
+在初始化渲染执行之后立刻调用一次，仅客户端有效（服务端不会调用）。对于整个生命周期而言，
+你可以在该阶段访问到任意子节点的引用（refs）。此外，子组件的`componentDidMount()`方法在父组件之前先调用。
 
-### `componentWillReceiveProps`
+此外，如果你想要与其他的JavaScript框架集成，使用`setTimeout`或`setInterval`设置计时器，
+或者是发送AJAX请求，在该方法中执行这些操作。
 
-组件接收到一个新的prop时会被执行，且该方法在初始`render`时不会被调用。
+### Updating: `componentWillReceiveProps`
 
-### `shouldComponentUpdate`
+当组件接收到新的props时该方法被调用。该方法并不会在初始化渲染阶段被调用。
 
-在组件接收到新的props或state时被执行。
+### Updating: `shouldComponentUpdate`
 
-### `componentWillUpdate`
+当组件接收到新的props或者state时，在渲染之前该方法被执行。
+该方法并不会在初始化渲染阶段或者是强制使用`forceUpdate`阶段对调用。
+
+[详细资料](https://facebook.github.io/react/docs/component-specs.html#updating-shouldcomponentupdate)
+
+### Updating: `componentWillUpdate`
 
 在组件接收到新的props或者state但还没有render时被执行。
 在初始化时不会被执行。
