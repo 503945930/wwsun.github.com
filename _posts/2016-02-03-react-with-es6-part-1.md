@@ -14,6 +14,10 @@ React是一个能够实现简单优雅的组件化方案的库。借助React能�
 - **作者：** [景庄](http://wwsun.github.com)，Web开发者，主要关注JavaScript、Node.js、React、Docker等。
 - **源码：** 本文的源代码地址：https://github.com/wwsun/react-es6-tutorial
 
+在[之前的文章](http://wwsun.github.io/posts/react-getting-started.html)中，我们曾经讨论过React开发的基础知识，
+如果你对React还不是很了解，可以参考该篇博文。另一方面，ES6已经在去年的年中正式被标准化，并且React拥抱ES6，对于开发者而言，
+应该尽可能的使用ES6来编写React应用。因此，以本文为开端，大致的介绍如何使用ES6来编写React应用。
+
 ## 工具说明
 
 本文所使用的各项技术均为最新版本，具体的版本信息参考如下：
