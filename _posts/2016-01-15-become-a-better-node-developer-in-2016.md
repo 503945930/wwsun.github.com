@@ -198,6 +198,26 @@ Promise.resolve(() => 'John')
 
 如果你想跳过初始的提问并直接使用默认的配置，只需要运行`npm init --yes`即可。
 
+## 文件夹结构
+
+Node项目的文件夹组织没有固定的格式，但是如果遵循某种惯例可让其他人更容易与你一起开发。以下是建议的文件夹结构：
+
+    - .gitignore    从Git库中忽略的文件清单
+    - .npmignore    不包括在npm注册库中的文件清单
+    - LICENSE       模块的授权文件
+    - README.md     以Markdown格式编写的模块README文件
+    - bin           保存模块可执行文件的文件夹
+    - doc           保存模块文档的文件夹
+    - examples      保存如何使用模块的实际示例的文件夹
+    - lib           保存模块代码的文件夹
+    - man           保存模块的任何手册页的文件夹
+    - package.json  描述模块的JSON文件
+    - src           保存源文件的文件夹，经常用于CoffeeScript文件
+    - test          保存模块测试的文件夹
+
+如果不想将文件放入npm注册库，就将它们加入到.npmignore文件中。如果模块没有`.mpmignore`文件但有`.gitignore`文件，
+则npm使用`.gitignore`文件的内容来忽略注册库中的内容。
+
 ## 监控你的应用
 
 当发生某个故障或是故障即将发生时，及时的通知你，能够为你挽回损失。
