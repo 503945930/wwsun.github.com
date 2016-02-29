@@ -15,7 +15,9 @@ Chris开发了Grunt，它极大的便利了项目的构建工作。本文将会�
 
 ## Gulp.js
 
-和Grunt类似，Gulp也是一个JavaScript的任务运行器（task runner）。不过，Gulp是一个流式构建系统，
+在几个月前，我[曾经介绍过Grunt](http://wwsun.github.io/posts/grunt-getting-started.html)，
+今天将要介绍的是一个和Grunt类似的构建工具——Gulp。
+Gulp和Grunt都是完全使用JavaScript实现的构建工具，不过，Gulp是一个流式构建系统，
 它完全借助了Node的流文件操纵功能，在内存中完成构建工作。整个插件都是通过`pipe()`函数来赋予。
 
 Gulp的最大特点在于流的使用，数据流能够同故宫一系列的小函数来传递数据，这些函数会对数据进行修改，
