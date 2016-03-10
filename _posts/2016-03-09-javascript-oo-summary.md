@@ -4,17 +4,19 @@ title: 深入解读JavaScript面向对象编程实践
 category: technique
 ---
 
-面向对象编程是用抽象方式创建基于现实世界模型的一种编程模式。主要包括模块化、多态、和封装几种技术。
-JavaScript 的核心是支持面向对象的，同时它也提供了强大灵活的面向对象编程（OOP）语言能力。
-本文简要介绍了使用ES5进行面向对象编程的基本知识，以及实现对象创建和对象继承的常用方法。
-并介绍了如何借助ES6中的新的类机制创建面向对象程序。
+面向对象编程是用抽象方式创建基于现实世界模型的一种编程模式，主要包括模块化、多态、和封装几种技术。
+对JavaScript而言，其核心是支持面向对象的，同时它也提供了强大灵活的基于原型的面向对象编程能力。
+本文将会深入的探讨有关使用JavaScript进行面向对象编程的一些核心基础知识，包括对象的创建，继承机制，
+最后还会简要的介绍如何借助ES6提供的新的类机制重写传统的JavaScript面向对象代码。
 
 <!--more-->
 
 ## 面向对象的几个概念
 
+在进入正题前，先了解传统的面向对象编程（例如Java）中常会涉及到的概念，大致可以包括：
+
 - 类：定义对象的特征。它是对象的属性和方法的模板定义。
-- 对象：类的一个实例。
+- 对象（或称实例）：类的一个实例。
 - 属性：对象的特征，比如颜色、尺寸等。
 - 方法：对象的行为，比如行走、说话等。
 - 构造函数：对象初始化的瞬间被调用的方法。
@@ -22,6 +24,9 @@ JavaScript 的核心是支持面向对象的，同时它也提供了强大灵活
 - 封装：一种把数据和相关的方法绑定在一起使用的方法。
 - 抽象：结合复杂的继承、方法、属性的对象能够模拟现实的模型。
 - 多态：不同的类可以定义相同的方法或属性。
+
+在JavaScript的面向对象编程中大体也包括这些。不过在称呼上可能稍有不同，例如，JavaScript中没有原生的“类”的概念，
+而只有**对象**的概念。因此，随着你认识的深入，我们会混用对象、实例、构造函数等概念。
 
 ## 对象（类）的创建
 
@@ -39,16 +44,18 @@ var person1 = new Person('Weiwei', 27, 'Student');
 var person2 = new Person('Lily', 25, 'Doctor');
 ```
 
-按照惯例，构造函数始终都应该以一个大写字母开头，普通函数则小写字母开头。
+按照惯例，构造函数始终都应该以一个大写字母开头（和Java中定义的类一样），普通函数则小写字母开头。
 要创建`Person`的新实例，必须使用`new`操作符。以这种方式调用构造函数实际上会经历以下4个步骤：
 
-1. 创建一个新对象（实例对象）
-2. **将构造函数的作用域赋给新对象**（因此 this 就指向了这个新对象）
+1. 创建一个新对象（实例）
+2. **将构造函数的作用域赋给新对象**（也就是重设了`this`的指向，`this`就指向了这个新对象）
 3. **执行构造函数中的代码**（为这个新对象添加属性）
 4. 返回新对象
 
-在上面的例子中，我们创建了`Person`的两个实例`person1`和`person2`。这两个对象都有一个`constructor`（构造函数）属性，
-该属性指向`Person`，也就是说：
+有关`new`操作符的更多内容请参考[这篇文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new)。
+
+在上面的例子中，我们创建了`Person`的两个实例`person1`和`person2`。
+这两个对象默认都有一个`constructor`属性，该属性指向它们的构造函数`Person`，也就是说：
 
 ```javascript
 console.log(person1.constructor == Person);  //true
@@ -69,15 +76,15 @@ console.log(person2 instanceof Person);  //true
 
 ### 构造函数的问题
 
-我们不建议在构造函数中定义方法，如果这样做的话，每个方法都要在每个实例上重新创建一遍。——不要忘了，
-ECMAScrit中的函数是对象，每定义一个函数，也就实例化了一个对象。
+我们**不建议在构造函数中直接定义方法**，如果这样做的话，每个方法都要在每个实例上重新创建一遍，这将非常损耗性能。
+——不要忘了，ECMAScript中的**函数是对象**，每定义一个函数，也就实例化了一个对象。
 
-好在，我们可以**原型对象**来解决这个问题。
+幸运的是，在ECMAScript中，我们可以借助**原型对象**来解决这个问题。
 
 ### 借助原型模式定义对象的方法
 
 我们创建的每个函数都有一个`prototype`属性，这个属性是一个指针，指向该函数的**原型对象**，
-该对象包含了由特定类型的所有实例共享的属性和方法。也就是说，我们可以利用原型对象来让所有对象实例共享它所包含的属性和方法。
+该对象包含了由特定类型的**所有实例共享的属性和方法**。也就是说，我们可以利用原型对象来让所有对象实例共享它所包含的属性和方法。
 
 ```javascript
 function Person(name, age, job) {
@@ -87,6 +94,7 @@ function Person(name, age, job) {
 }
 
 // 通过原型模式来添加所有实例共享的方法
+// sayName() 方法将会被Person的所有实例共享，而避免了重复创建
 Person.prototype.sayName = function () {
   console.log(this.name);
 };
@@ -100,28 +108,38 @@ person1.sayName(); // Weiwei
 person2.sayName(); // Lily
 ```
 
-正如上面的代码所示，通过原型模式定义的方法`sayName`为所有的实例所贡献。也就是，
-`person1`和`person2`访问的是同一个`sayName()`函数。同样的，公共属性也可以使用原型模式进行定义。
+正如上面的代码所示，通过原型模式定义的方法`sayName()`为所有的实例所共享。也就是，
+`person1`和`person2`访问的是同一个`sayName()`函数。同样的，公共属性也可以使用原型模式进行定义。例如：
+
+```javascript
+function Chinese (name) {
+    this.name = name;
+}
+
+Chinese.prototype.country = 'China'; // 公共属性，所有实例共享
+```
 
 ### 原型对象
 
 现在我们来深入的理解一下什么是原型对象。
 
 只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个`prototype`属性，这个属性指向函数的原型对象。
-在默认情况下，所有原型对象都会自动获得一个`constructor`属性，这个属性包含一个指向`prototype`属性锁在函数的指针。
+在默认情况下，所有原型对象都会自动获得一个`constructor`属性，这个属性包含一个指向`prototype`属性所在函数的指针。
 也就是说：`Person.prototype.constructor`指向`Person`构造函数。
 
 创建了自定义的构造函数之后，其原型对象默认只会取得`constructor`属性；至于其他方法，则都是从`Object`继承而来的。
 当调用构造函数创建一个新实例后，该实例内部将包含一个指针（内部属性），指向构造函数的原型对象。ES5中称这个指针为`[[Prototype]]`，
-在Firefox、Safari和Chrome在每个对象上都支持一个属性`__proto__`；而在其他实现中，这个属性对脚本则是完全不可见的。
+在Firefox、Safari和Chrome在每个对象上都支持一个属性`__proto__`（目前已被废弃）；而在其他实现中，这个属性对脚本则是完全不可见的。
 要注意，**这个链接存在于实例与构造函数的原型对象之间，而不是实例与构造函数之间**。
+
+这三者关系的示意图如下：
 
 ![prototype graph](http://7xpv9g.com1.z0.glb.clouddn.com/imgprototype-graph-1.jpg)
 
 上图展示了`Person`构造函数、`Person`的原型对象以及`Person`现有的两个实例之间的关系。
 
 - `Person.prototype`指向了原型对象
-- `Person.prototype.constructor`又指回了`Person`
+- `Person.prototype.constructor`又指回了`Person`构造函数
 - `Person`的每个实例`person1`和`person2`都包含一个内部属性（通常为`__proto__`），`person1.__proto__`和`person2.__proto__`指向了原型对象
 
 ### 查找对象属性
@@ -139,9 +157,14 @@ person2.sayName(); // Lily
 
 ### `Object.getPrototypeOf()`
 
-ES5增加了一个新方法，叫`Object.getPrototypeOf()`，在所有支持的实现中，这个方法返回`[[Prototype]]`的值。例如：
+根据ECMAScript标准，`someObject.[[Prototype]]` 符号是用于指派 `someObject` 的原型。
+这个等同于 JavaScript 的 `__proto__` 属性（现已弃用）。
+从ECMAScript 5开始, `[[Prototype]]` 可以用`Object.getPrototypeOf()`和`Object.setPrototypeOf()`访问器来访问。
 
-    console.log(Object.getPrototypeOf(p1) === Person.prototype); // true
+其中`Object.getPrototypeOf()`在所有支持的实现中，这个方法返回`[[Prototype]]`的值。例如：
+
+    person1.__proto__ === Object.getPrototypeOf(person1); // true
+    Object.getPrototypeOf(person1) === Person.prototype; // true
 
 也就是说，`Object.getPrototypeOf(p1)`返回的对象实际就是这个对象的原型。
 这个方法的兼容性请参考[该链接](http://caniuse.com/#search=getPrototypeOf())。
@@ -219,6 +242,8 @@ Object.defineProperty(Person.prototype, "constructor", {
 如果我们让原型对象等于另一个类型的实现，结果会怎么样？显然，**此时的原型对象将包含一个指向另一个原型的指针**，
 相应的，另一个原型中也包含着一个指向另一个构造函数的指针。假如另一个原型又是另一个类型的实例，那么上述关系依然成立，
 如此层层递进，就构成了实例与原型的链条。
+更详细的内容可以参考[这个链接](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)。
+先看一个简单的例子，它演示了使用原型链实现继承的基本框架：
 
 ```javascript
 function Father () {
@@ -277,7 +302,7 @@ instance.getChildValue();  // false
 
 所有的函数都默认原型都是`Object`的实例，因此默认原型都会包含一个内部指针`[[Prototype]]`，指向`Object.prototype`。
 这也正是所有自定义类型都会继承`toString()`、`valueOf()`等默认方法的根本原因。所以，
-我们说上面例子展示的原型链中还应该包括另外一个继承层次。
+我们说上面例子展示的原型链中还应该包括另外一个继承层次。关于`Object`的更多内容，可以参考[这篇博客](http://luopq.com/2016/02/28/Object-in-Javascript/)。
 
 也就是说，`Child`继承了`Father`，而`Father`继承了`Object`。当调用了`instance.toString()`时，
 实际上调用的是保存在`Object.prototype`中的那个方法。
@@ -408,7 +433,7 @@ student1.saySchool(); // Southeast University
 
 在上面，我们继承父类的原型方法使用的是`Student.prototype = new Person()`。
 这样做[有很多的问题](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript)。
-改进方法是使用ES5中新增的`Object.create()`：
+改进方法是使用ES5中新增的`Object.create()`。可以调用这个方法来创建一个新对象。新对象的原型就是调用`create()`方法传入的第一个参数：
 
 ```javascript
 Student.prototype = Object.create(Person.prototype);
@@ -486,6 +511,40 @@ stu2.sayName(); // lily
 stu2.saySchool(); // Nanjing University
 ```
 
+### 类：`class`
+
+是JavaScript中现有基于原型的继承的语法糖。ES6中的**类**并不是一种新的创建对象的方法，只不过是一种“特殊的函数”，
+因此也包括[类表达式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/class)和[类声明](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/class)，
+但需要注意的是，与函数声明不同的是，类声明不会被[提升](http://www.sitepoint.com/back-to-basics-javascript-hoisting/)。
+[参考链接](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/class)
+
+### 类构造器：`constructor`
+
+`constructor()`方法是有一种特殊的和`class`一起用于创建和初始化对象的方法。注意，在ES6类中只能有一个名称为`constructor`的方法，
+否则会报错。在`constructor()`方法中可以调用`super`关键字调用父类构造器。如果你没有指定一个构造器方法，
+类会自动使用一个默认的构造器。[参考链接](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)
+
+### 类的静态方法：`static`
+
+静态方法就是可以直接使用类名调用的方法，而无需对类进行实例化，当然实例化后的类也无法调用静态方法。
+静态方法常被用于创建应用的工具函数。[参考链接](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static)
+
+### 继承父类：`extends`
+
+`extends`关键字可以用于继承父类。使用`extends`可以扩展一个内置的对象（如`Date`），也可以是自定义对象，或者是`null`。
+
+### 关键字：`super`
+
+`super`关键字用于调用父对象上的函数。
+`super.prop`和`super[expr]`表达式在类和[对象字面量](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer)中的任何[方法定义](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions)中都有效。
+
+```javascript
+super([arguments]); // 调用父类构造器
+super.functionOnParent([arguments]); // 调用父类中的方法
+```
+
+如果是在类的构造器中，需要在`this`关键字之前使用。[参考链接](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super)
+
 ## 小结
 
 本文对JavaScript的面向对象机制进行了较为深入的解读，尤其是构造函数和原型链方式实现对象的创建、继承、以及实例化。
@@ -493,6 +552,8 @@ stu2.saySchool(); // Nanjing University
 
 ## References
 
+1. [详解Javascript中的Object对象](http://luopq.com/2016/02/28/Object-in-Javascript)
+1. [`new`操作符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new)
 1. [JavaScript面向对象简介](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript)
-2. [Object.create()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
-3. [继承与原型链](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+1. [Object.create()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
+1. [继承与原型链](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
