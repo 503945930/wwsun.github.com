@@ -27,16 +27,38 @@ category: technique
 你可以调用这个函数来来完成相应的任务。回调函数没有返回值（不要试图用`return`），仅仅被用来在函数内部执行某些动作。
 看一个例子：
 
-	Something.save(function(err) {  
-		if (err)  {
-			//error handling
-			return; // 没有返回值
-		}
-		console.log('success');
-	});
+```javascript
+const fs = require('fs')
+
+console.log('start reading a file...')
+
+fs.readFile('file.md', 'utf-8', function (err, content) {  
+  if (err) {
+    console.log('error happened during reading the file')
+    return console.log(err)
+  }
+
+  console.log(content)
+})
+
+console.log('end of the file')  
+```
+
+输出结果是：
+
+```bash
+start reading a file...  
+end of the file  
+error happened during reading the file  
+```
 	
 上面的例子中我们演示了一个错误优先的回调函数（error-first callbacks），这也是Node.js本身的特点之一，
 Node.js中所有的核心模块和NPM仓库中的大部分模块在编写时都会遵循这个特点。
+
+简单总结一下在Node.js中使用回调函数进行编程点特点：
+
+- **错误优先**
+- **没有返回值**: 异步函数没有返回值，值将会被传递给回调函数。
 
 过度使用回调函数所会遇到的挑战：
 
