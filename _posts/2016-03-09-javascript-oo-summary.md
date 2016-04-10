@@ -119,6 +119,12 @@ function Chinese (name) {
 Chinese.prototype.country = 'China'; // 公共属性，所有实例共享
 ```
 
+当我们`new Person()`时，返回的`Person`实例会结合构造函数中定义的属性、行为和原型中定义的属性、行为，
+生成最终属于`Person`实例的属性和行为。
+
+构造函数中定义的属性和行为的优先级要比原型中定义的属性和行为的优先级高，如果构造函数和原型中定义了同名的属性或行为，
+构造函数中的属性或行为会覆盖原型中的同名的属性或行为。
+
 ### 原型对象
 
 现在我们来深入的理解一下什么是原型对象。
@@ -158,7 +164,7 @@ Chinese.prototype.country = 'China'; // 公共属性，所有实例共享
 ### `Object.getPrototypeOf()`
 
 根据ECMAScript标准，`someObject.[[Prototype]]` 符号是用于指派 `someObject` 的原型。
-这个等同于 JavaScript 的 `__proto__` 属性（现已弃用）。
+这个等同于 JavaScript 的 `__proto__` 属性（现已弃用，因为它不是标准）。
 从ECMAScript 5开始, `[[Prototype]]` 可以用`Object.getPrototypeOf()`和`Object.setPrototypeOf()`访问器来访问。
 
 其中`Object.getPrototypeOf()`在所有支持的实现中，这个方法返回`[[Prototype]]`的值。例如：
@@ -190,6 +196,7 @@ function Person(name, age, job) {
   this.job = job;
 }
 
+// 重写整个原型对象
 Person.prototype = {
   
   // 这里务必要重新将构造函数指回Person构造函数，否则会指向这个新创建的对象
@@ -230,6 +237,9 @@ Object.defineProperty(Person.prototype, "constructor", {
 ## 继承
 
 大多的面向对象语言都支持两种继承方式：接口继承和实现继承。ECMAScript只支持实现继承，而且其实现继承主要依靠原型链来实现。
+
+前面我们知道，JavaScript中实例的属性和行为是由构造函数和原型两部分共同组成的。如果我们想让`Child`继承`Father`，
+那么我们就需要把`Father`构造函数和原型中属性和行为全部传给`Child`的构造函数和原型。
 
 ### 原型链继承
 
@@ -332,6 +342,7 @@ Child.prototype = new Father();
 
 // 使用字面量添加新方法，会导致上一行代码无效
 // 此时我们设想的原型链被切断，而是变成 Child -> Object
+// 所以我们不推荐这么写了
 Child.prototype = {
   getChildValue: function () {
     console.log(this.childValue);
@@ -361,6 +372,8 @@ function Father (name) {
 
 function Child (name) {
   // 继承了Father，同时传递了参数
+  // 之所以这么做，是为了获得Father构造函数中的所有属性和方法
+  // 之所以用call，是为了修正Father内部this的指向
   Father.call(this, name);
 }
 
@@ -378,7 +391,7 @@ console.log(instance2.name); // lily
 
 ### 借用构造函数的缺点
 
-同构造函数一样，无法实现方法的复用。
+同构造函数一样，无法实现方法的复用（所有的方法会被重复创建一份）。
 
 ### 组合使用原型链和借用构造函数
 
@@ -403,12 +416,12 @@ Person.prototype.sayName = function () {
 
 // 子类构造函数
 function Student (name, age, job, school) {
-  // 继承父类的所有实例属性
+  // 继承父类的所有实例属性（获得父类构造函数中的属性）
   Person.call(this, name, age, job);
   this.school = school; // 添加新的子类属性
 }
 
-// 继承父类的原型方法
+// 继承父类的原型方法（获得父类原型链上的属性和方法）
 Student.prototype = new Person();
 
 // 新增的子类方法
