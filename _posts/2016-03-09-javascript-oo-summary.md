@@ -476,11 +476,13 @@ Student.prototype = createObject(Person.prototype);
 ## ES6中的面向对象语法
 
 ES6中引入了一套新的关键字用来实现[class](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes)。
-JavaScript仍然是基于原型的，这些新的关键字包括[class](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/class)、
+但它并不是映入了一种新的面向对象继承模式。JavaScript仍然是基于原型的，这些新的关键字包括[class](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/class)、
 [constructor](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/constructor)、
 [static](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/static)、
 [extends](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/extends)、
 和[super](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/super)。
+
+`class`关键字不过是提供了一种在本文中所讨论的基于原型模式和构造器模式的面向对象的继承方式的**语法糖(syntactic sugar)**。
 
 对前面的代码修改如下：
 
@@ -570,3 +572,4 @@ super.functionOnParent([arguments]); // 调用父类中的方法
 1. [JavaScript面向对象简介](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript)
 1. [Object.create()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
 1. [继承与原型链](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+1. [Understanding the prototype property in JavaScript](http://bytearcher.com/articles/understanding-prototype-property-in-javascript/)
