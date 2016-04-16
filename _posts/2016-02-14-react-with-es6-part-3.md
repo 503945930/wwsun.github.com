@@ -75,7 +75,7 @@ class CartItem extends React.Component {
 
 ### 方法3：使用胖箭头函数`=>`和构造器
 
-ES6胖箭头函数会在它们被调用的时候自动保存`this`上下文。我们可以通过这个特性来重新咋构造器中定义`increaseQty()`：
+ES6胖箭头函数会在它们被调用的时候自动保存`this`上下文。我们可以通过这个特性来重新构造器中定义`increaseQty()`：
 
 ```javascript
 class CartItem extends React.Component {
@@ -91,6 +91,50 @@ class CartItem extends React.Component {
 }
 ```
 
+### 方法4: 组合使用胖箭头函数和ES7类属性（附加）
+
+首先，要声明一点，这里所谓的ES7只是一种统称，用于指代那些已经处于`stage-0`阶段的ES特性。
+让我们来看看，ES7的类属性能够带来怎样的代码变化。
+
+```jsx
+class CartItem extends React.Component {
+    
+    increaseQty = () => this.increaseQty(); // 相当于直接声明函数表达式
+    
+    render() {
+        return (<button onClick={this.increaseQty} className="button success">+</button>);
+    }
+    
+}
+```
+
+我们发现，我们可以利用类属性来避免在构造器中映入方法的绑定代码。
+要想使用上面的代码，你需要在Babel的配置选项中加入`stage-0`。
+
+### 方法5: 使用ES7函数绑定语法
+
+在ES的后续版本中，还会引入一个称为函数绑定操作符`::`，事实上，它不过是`Function.propotype.bind()`的一种语法糖。
+在这里，我们并不深入探讨这个操作符的实现原理，我们只要知道可以如何用在我们的项目中，
+幸运的是，Babel已经提供了对这个新语法的支持。
+
+```jsx
+class CartItem extends React.Component {
+    
+    constructor (props) {
+        super(props);
+        // this.increaseQty = ::this.increaseQty;  // 类似的，你也可以在这里绑定
+    }
+    
+    render () {
+        
+        return (<button onClick={::this.increaseQty} className="button success">+</button>);
+    }
+}
+```
+
+最后，再次声明，所有本文所谓的ES7语法只是建议中的新的语法特性，并不一定会被纳入最终的ES标准中，
+在实际的项目开发中需要谨慎使用。
+
 ## 小结
 
 在本文中，我们主要讨论几种使用ES6代码来解决绑定到React组件方法的可行方案。
@@ -104,3 +148,5 @@ class CartItem extends React.Component {
 2. [Auto binding, React and ES6 Classes](http://www.ian-thomas.net/autobinding-react-and-es6-classes/)
 3. [Function Bind Syntax in Official Babel Blog](http://babeljs.io/blog/2015/05/14/function-bind/)
 4. [Function.prototype.bind()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+5. []()
+6. [ECMAScript This-Binding Syntax](https://github.com/zenparsing/es-function-bind)
