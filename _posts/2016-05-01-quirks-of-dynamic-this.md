@@ -21,10 +21,10 @@ category: technique
 "use strict";
 
 const polyglot = {
-    name : "Michel Thomas",
-    languages : ["Spanish", "French", "Italian", "German", "Polish"],
+    name : "Weiwei SUN",
+    languages : ["Chinese", "English", "Italian", "German", "Polish"],
     introduce : function () {
-        // this.name is "Michel Thomas"
+        // this.name is "Weiwei SUN"
         const self = this;
         this.languages.forEach(function(language) {
             // this.name is undefined, so we have to use our saved "self" variable 
@@ -60,7 +60,7 @@ var BindingMixin = {
 }
 ```
 
-问题在于，在JavaScript中，函数中的`this`总是取决于它们被调用的实际，
+问题在于，在JavaScript中，函数中的`this`总是取决于它们的实际调用者，
 大体上可以包括[四个规则](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&%20object%20prototypes/ch2.md)。
 这个机制就是所谓的动态`this`。
 
@@ -86,8 +86,8 @@ var BindingMixin = {
 "use strict";
 
 let polyglot = {
-    name : "Michel Thomas",
-    languages : ["Spanish", "French", "Italian", "German", "Polish"],
+    name : "Weiwei SUN",
+    languages : ["Chinese", "English", "Italian", "German", "Polish"],
     introduce : function () {
         this.languages.forEach((language) => {
             console.log("My name is " + this.name + ", and I speak " + language + ".");
@@ -111,10 +111,6 @@ let languages = ["Spanish", "French", "Italian", "German", "Polish"];
 let languages_lower = languages.map((language) => {
     return language.toLowerCase()
 });
-
-// In a single-line arrow function, curly braces are optional,
-//   and the function implicitly returns the value of the last expression.
-//   You can include a return statement if you'd like, but it's optional.
 
 // 如果是单行的箭头函数，那么花括号则是可选的
 //  并且函数会隐式的返回表达式，
