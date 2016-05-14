@@ -1,5 +1,15 @@
 #  BLOG Introduction
 
+## Dependencies
+
+- [Github Pages](https://pages.github.com/)
+- [Jekyll](https://jekyllrb.com/), which is a staic site generator based on Ruby
+- [Bootstrap](getbootstrap.com/), a simple front-end framework
+- [Swiftype](https://swiftype.com/), site search
+
+
+## History
+
 ###[2016-01-10]
 
 Update the layouts, decreasing the useless requests and assets.
