@@ -95,6 +95,16 @@ export let IntervalEnhance = ComponsedComponent => class extends React.Component
 1. `ComposedComponent => class extends React.Component` - 这其实和定义返回类的函数一样。
 其中`ComposedComponent`是我们想要“增强”的组件（在上面的代码中就是`CartItem`组件）。
 通过使用`export let IntervalEnhance`我们可以导出整个函数为`IntervalEnhance`（也就是上面代码中的`CartItem`）。
+所以，上面的代码也可以这么写：
+
+  ```javascript
+  let IntervalEnhance = function (ComposedComponent) {
+    return class extends React.Component {
+      // class methods here
+    };
+  };
+  ```
+
 2. 初始化组件的状态（state），设置`seconds`的值为0。
 3. 组件的生命周期钩子函数，用于期待能够和暂停计数器。
 4. 最重要的一个部分。这行代码将所有的`state`或`props`拿到我们的“增强器”组件中，然后转移到`CartItem`组件中。
