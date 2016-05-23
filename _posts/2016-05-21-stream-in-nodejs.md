@@ -4,8 +4,9 @@ title: 认识Node.js中流
 category: technique
 ---
 
-流是Node.js中一个非常重要的概念，也是Node.js之所以适用于数据密集型场景的重要原因之一。
-流逝Node.js移动数据的饭昂时，流可以是可读的和／或可写的。在Node.js中很多模块都使用到了流，
+流是Node.js中一个非常重要的概念，
+也是Node.js之所以[适用于I/O密集型](http://www.infoq.com/cn/articles/nodejs-weakness-cpu-intensive-tasks)场景的重要原因之一。
+流是Node.js移动数据的方式，流可以是可读的和／或可写的。在Node.js中很多模块都使用到了流，
 包括HTTP和fs模块，本文将用尽可能简单的方式为你介绍Node中流的概念。
 
 <!--more-->
@@ -33,7 +34,7 @@ category: technique
 我们可以通过流来读写文件数据的实例。由于数据是流，这就意味着在完成文件读取之前，
 从收到最初几个字节开始，就可以对数据动作。这是Node.js中的一个常见模式：
 
-### 可读流
+## 可读流
 
 ```javascript
 const fs = require('fs');
