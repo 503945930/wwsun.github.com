@@ -1,16 +1,17 @@
 ---
 layout: about
-title: 关于我 - Weiwei SUN
+title: 关于我 - 景庄
 ---
 
-Hello, I am Jingzhuang, major in Computer Science (or Information Technology), work for [Alibaba](http://www.alibaba.com/).
+Hello, I am Jingzhuang, major in Computer Science (or Information Technology).
 The main interest areas of mine are: Front-end Engineering, Microservices, and Data Visualization.
 The main programming languages of mine are: JavaScript, Node.js, Java.
 
-花名景庄，90年生人，性别工科男，计算机技术硕士，前端工程师，目前就职于阿里巴巴。
-主要关注方向为：前端工程化技术、微服务、数据可视化技术。主要使用的语言为JavaScript、Node.js、Java。
+花名景庄，工科男，计算机技术硕士，毕业于东南大学。
+目前主要关注方向为：前端工程化技术、微服务、Web开发技术。
+主要使用的语言为JavaScript、Node.js、Java。
 
-[My CV/ 个人简历](/RESUME.html)
+[My Github](https://github.com/wwsun)
 
 <h2 class="text-center">Statement</h2>
 
