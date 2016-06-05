@@ -44,6 +44,9 @@ category: technique
 
 ### 准备工作
 
+> ps: 除了使用 esprima ，你还可以借助 Babel 内置的语法解析器来进行。
+具体过程可以参考[这篇文章](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)。
+
 为了能够完成后面的工作，你需要确保安装了Node环境。首先创建项目的基本目录结构，以及初始化NPM。
 
 	mkdir esprima-tutorial
@@ -266,3 +269,4 @@ category: technique
 1. [Esprima tutorial](http://sevinf.github.io/blog/2012/09/29/esprima-tutorial/)
 2. [Fun with Esprima and Static Analysis](http://tobyho.com/2013/12/02/fun-with-esprima/)
 3. [Parsing and modifying JavaScript code with Esprima and Scodegen](http://www.mattzeunert.com/2013/12/30/parsing-and-modifying-Javascript-code-with-esprima-and-escodegen.html)
+4. [Understanding ASTs by Building Your Own Babel Plugin](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)
