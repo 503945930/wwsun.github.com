@@ -2,3 +2,4 @@ _site
 *Thumbs.db
 .DS_Store
 /img/posts/
+node_modules/
